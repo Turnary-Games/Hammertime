@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e41fa24ddf5297744a048d85bc989bfa
-timeCreated: 1433358778
+guid: 19ca266db7cfefe47bad5d604920eeb8
+timeCreated: 1433363010
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -9,24 +9,26 @@ ModelImporter:
     100002: pPyramid1
     100004: pPyramid2
     100006: pPyramid3
-    100008: //RootNode
+    100008: pPyramid4
+    100010: transform1
+    100012: transform2
+    100014: transform3
+    100016: //RootNode
     400000: pCube1
     400002: pPyramid1
     400004: pPyramid2
     400006: pPyramid3
-    400008: //RootNode
+    400008: pPyramid4
+    400010: transform1
+    400012: transform2
+    400014: transform3
+    400016: //RootNode
     2300000: pCube1
-    2300002: pPyramid1
-    2300004: pPyramid2
-    2300006: pPyramid3
+    2300002: pPyramid4
     3300000: pCube1
-    3300002: pPyramid1
-    3300004: pPyramid2
-    3300006: pPyramid3
+    3300002: pPyramid4
     4300000: pCube1
-    4300002: pPyramid1
-    4300004: pPyramid2
-    4300006: pPyramid3
+    4300002: pPyramid4
     9500000: //RootNode
   materials:
     importMaterials: 1

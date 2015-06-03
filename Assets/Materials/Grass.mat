@@ -77,6 +77,13 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _MatCap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -138,7 +145,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .0170307253, g: .772058845, b: .14720802, a: 1}
+        second: {r: 0, g: .713235259, b: .00491882395, a: 1}
       data:
         first:
           name: _EmissionColorUI
