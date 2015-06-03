@@ -4,8 +4,9 @@ using System.Collections;
 public class HammerController : MonoBehaviour {
 
 	public LayerMask raycastMask;
-	private Vector3 point;
+	public WackingArea wackingArea;
 
+	private Vector3 point;
 	private Animator anim;
 
 	void Start() {
@@ -14,7 +15,7 @@ public class HammerController : MonoBehaviour {
 
 	void Update () {
 		Raycast ();
-
+		
 		transform.position = point;
 	}
 
@@ -32,9 +33,16 @@ public class HammerController : MonoBehaviour {
 	void HandleHit(RaycastHit hit) {
 		if (Input.GetMouseButtonDown (0)) {
 			anim.SetTrigger("Swing");
+			Wack ();
 		}
-
 		point = hit.point;
+	}
+
+	void Wack() {
+		foreach (Wackable wack in wackingArea.insideTrigger) {
+			wack.Wack ();
+		}
+		wackingArea.Cleanup();
 	}
 
 }
