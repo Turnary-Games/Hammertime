@@ -7,6 +7,9 @@ public class Projectile : MonoBehaviour {
 	public Transform mark;
 	public float speed;
 
+	public int health = 1;
+	public bool dead;
+
 	void Update() {
 		FindTarget ();
 		if (target != null) {
@@ -15,6 +18,16 @@ public class Projectile : MonoBehaviour {
 		}
 	}
 
+	void OnTriggerEnter(Collider other) {
+		Minion minion = other.GetComponent<Minion>();
+		
+		if (minion == target) {
+			HitTarget ();
+			Kill ();
+		}
+	}
+
+	#region Movement (MoveSkull, MoveMark, FindTarget)
 	void MoveSkull() {
 		transform.position = Vector3.MoveTowards (transform.position, target.transform.position, speed * Time.deltaTime);
 		transform.LookAt (target.transform);
@@ -34,24 +47,33 @@ public class Projectile : MonoBehaviour {
 				Kill ();
 		}
 	}
+	#endregion
 
+	#region Damage and health (HitTarget, Damage, HealthChange, Kill)
 	void HitTarget() {
 		target.Damage ();
 	}
-
-	void Kill() {
-		Destroy (gameObject);
+	
+	// returns Boolean: true=died, false=survived
+	public bool Damage(int amount = 1) {
+		health -= amount;
+		HealthChange ();
+		return health <= 0;
 	}
-
-	void OnTriggerEnter(Collider other) {
-		Minion minion = other.GetComponent<Minion>();
-		
-		if (minion == target) {
-			HitTarget ();
-			Kill ();
+	
+	void HealthChange() {
+		if (health <= 0 && !dead) {
+			Kill();
 		}
 	}
 	
+	void Kill() {
+		dead = true;
+		Destroy(gameObject);
+	}
+	#endregion
+	
+	#region Static methods
 	public static void SpawnProjectile(GameObject prefab, Vector3 source) {
 		Minion target = NearestTarget (source);
 		
@@ -84,5 +106,6 @@ public class Projectile : MonoBehaviour {
 
 		return closest;
 	}
+	#endregion
 
 }
