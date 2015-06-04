@@ -8,8 +8,7 @@ public class WackingArea : MonoBehaviour {
 	public List<Wackable> insideTrigger;
 
 	void OnTriggerEnter(Collider other) {
-
-		Wackable wack = other.GetComponent<Wackable>();
+		Wackable wack = GetWack (other);
 
 		if (wack != null) {
 			if (!insideTrigger.Contains (wack)) {
@@ -19,13 +18,22 @@ public class WackingArea : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider other) {
-		Wackable wack = other.GetComponent<Wackable>();
+		Wackable wack = GetWack (other);
 
 		if (wack != null) {
 			if (insideTrigger.Contains (wack)) {
 				insideTrigger.Remove (wack);
 			}
 		}
+	}
+
+	Wackable GetWack(Collider other) {
+		Wackable wack = null;
+		if (other.attachedRigidbody != null)
+			wack = other.attachedRigidbody.GetComponent<Wackable> ();
+		else
+			wack = other.GetComponent<Wackable> ();
+		return wack;
 	}
 
 	public void Cleanup() {
