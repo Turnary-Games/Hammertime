@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Road
+  m_Name: Steel
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -77,13 +77,6 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _MatCap
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -108,7 +101,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: 0
+        second: .379999995
       data:
         first:
           name: _BumpScale
@@ -136,7 +129,7 @@ Material:
       data:
         first:
           name: _Metallic
-        second: 0
+        second: .0900000036
     m_Colors:
       data:
         first:
@@ -145,7 +138,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: .8482759, b: .352941155, a: 1}
+        second: {r: .509948134, g: .517306328, b: .529411793, a: 1}
       data:
         first:
           name: _EmissionColorUI
