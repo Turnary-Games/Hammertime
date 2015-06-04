@@ -14,12 +14,13 @@ public class Minion : MonoBehaviour {
 	}
 
 	void HealthChange() {
-		if (health <= 0) {
-			Death();
+		if (health <= 0 && !dead) {
+			Kill();
 		}
 	}
 
-	void Death() {
+	void Kill() {
+		dead = true;
 		Destroy(gameObject);
 	}
 

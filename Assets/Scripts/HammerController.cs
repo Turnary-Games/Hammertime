@@ -35,7 +35,12 @@ public class HammerController : MonoBehaviour {
 			anim.SetTrigger("Swing");
 			Wack ();
 		}
-		point = hit.point;
+
+		if (hit.collider.tag == "Skull projectile") {
+			point = hit.collider.transform.position + Vector3.up * hit.collider.bounds.size.y/2;
+		} else {
+			point = hit.point;
+		}
 	}
 
 	void Wack() {
