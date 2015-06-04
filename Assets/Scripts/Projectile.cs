@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour {
 	public float speed;
 
 	public int health = 1;
-	public bool dead;
+	private bool dead;
 
 	void Update() {
 		FindTarget ();
@@ -19,12 +19,19 @@ public class Projectile : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		Minion minion = other.GetComponent<Minion>();
+		Minion minion = GetMinion (other);
 		
 		if (minion == target) {
 			HitTarget ();
 			Kill ();
 		}
+	}
+
+	Minion GetMinion(Collider other) {
+		if (other.attachedRigidbody != null)
+			return other.attachedRigidbody.GetComponent<Minion> ();
+		else
+			return other.GetComponent<Minion> ();
 	}
 
 	#region Movement (MoveSkull, MoveMark, FindTarget)
@@ -90,6 +97,11 @@ public class Projectile : MonoBehaviour {
 		Minion closest = null;
 		
 		foreach (Minion minion in FindObjectsOfType<Minion>()) {
+			// HARD CODING FTW
+			if (minion.side == Side.enemy) {
+				continue;
+			}
+
 			if (closest == null) {
 				closest = minion;
 			} else {

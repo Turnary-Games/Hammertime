@@ -28,12 +28,10 @@ public class WackingArea : MonoBehaviour {
 	}
 
 	Wackable GetWack(Collider other) {
-		Wackable wack = null;
 		if (other.attachedRigidbody != null)
-			wack = other.attachedRigidbody.GetComponent<Wackable> ();
+			return other.attachedRigidbody.GetComponent<Wackable> ();
 		else
-			wack = other.GetComponent<Wackable> ();
-		return wack;
+			return other.GetComponent<Wackable> ();
 	}
 
 	public void Cleanup() {

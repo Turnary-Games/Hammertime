@@ -5,7 +5,11 @@ public class HammerController : MonoBehaviour {
 
 	public LayerMask raycastMask;
 	public WackingArea wackingArea;
+	[Space(12)]
+	public int damage = 1;
+	public float attackCooldown;
 
+	private bool canAttack = true;
 	private Vector3 point;
 	private Animator anim;
 
@@ -32,8 +36,7 @@ public class HammerController : MonoBehaviour {
 
 	void HandleHit(RaycastHit hit) {
 		if (Input.GetMouseButtonDown (0)) {
-			anim.SetTrigger("Swing");
-			Wack ();
+			Punch ();
 		}
 
 		if (hit.collider.tag == "Skull projectile") {
@@ -41,6 +44,20 @@ public class HammerController : MonoBehaviour {
 		} else {
 			point = hit.point;
 		}
+	}
+
+	void Punch() {
+		if (canAttack) {
+			Wack ();
+			anim.SetTrigger("Swing");
+			StartCoroutine(AttackCooldown());
+		}
+	}
+
+	IEnumerator AttackCooldown() {
+		canAttack = false;
+		yield return new WaitForSeconds (attackCooldown);
+		canAttack = true;
 	}
 
 	void Wack() {

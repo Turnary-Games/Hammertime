@@ -65,7 +65,7 @@ GameObject:
   m_Layer: 0
   m_Name: Hammer
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -2663371497217273435, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -129,7 +129,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 172832}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 264.399994, y: 6.23484325, z: 413}
+  m_LocalPosition: {x: -.850006104, y: 6.23484325, z: -22.269989}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 429644}
@@ -158,7 +158,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: ff2fc97829e36aa4dbb07c0ec7b02d57, type: 2}
+  - {fileID: 2100000, guid: 3af102a644b864f4f8bea1ebdfcda523, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -182,7 +182,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: ff2fc97829e36aa4dbb07c0ec7b02d57, type: 2}
+  - {fileID: 2100000, guid: b8743e6479f46124abf2268c3f13e447, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -257,6 +257,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   wackingArea: {fileID: 11479514}
+  damage: 1
+  attackCooldown: 1
 --- !u!114 &11479514
 MonoBehaviour:
   m_ObjectHideFlags: 1

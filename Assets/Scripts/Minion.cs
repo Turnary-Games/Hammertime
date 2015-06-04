@@ -14,12 +14,15 @@ public class Minion : MonoBehaviour {
 	[Space(12)]
 	public Side side;
 	public int health = 1;
+	public int damage = 1;
+	public float attackCooldown;
+	private bool canAttack = true;
+
 	private bool dead;
 	private State state = State.idle;
 
 	// Pathfinding
 	private NavMeshAgent agent;
-	private Target target;
 
 	void Start() {
 		agent = GetComponent<NavMeshAgent>();
@@ -53,6 +56,7 @@ public class Minion : MonoBehaviour {
 		}
 
 		Stare (victim.transform.position);
+		Punch (victim);
 	}
 
 	void Follow(Minion victim) {
@@ -72,6 +76,7 @@ public class Minion : MonoBehaviour {
 			state = State.moving;
 
 			// Initial
+			
 			SetTarget(new Target(goal));
 			agent.updateRotation = true;
 		}
@@ -81,6 +86,19 @@ public class Minion : MonoBehaviour {
 		Vector3 lookDir = new Vector3 (position.x, transform.position.y, position.z) - transform.position;
 		Vector3 newDir = Vector3.RotateTowards (transform.forward, lookDir, Time.deltaTime * stareAngularSpeed, 0.0f);
 		transform.rotation = Quaternion.LookRotation (newDir);
+	}
+
+	void Punch(Minion victim) {
+		if (canAttack) {
+			victim.Damage(damage);
+			StartCoroutine(AttackCooldown());
+		}
+	}
+
+	IEnumerator AttackCooldown() {
+		canAttack = false;
+		yield return new WaitForSeconds (attackCooldown);
+		canAttack = true;
 	}
 
 	/*
@@ -97,9 +115,8 @@ public class Minion : MonoBehaviour {
 	*/
 
 	void SetTarget(Target target) {
-		this.target = target;
-
 		agent.SetDestination (target.GetPosition ());
+		agent.Resume ();
 	}
 
 	public static bool SameSide(Minion a, Minion b) {
