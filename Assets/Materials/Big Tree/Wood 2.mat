@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Leafs 2
+  m_Name: Wood 2
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -145,7 +145,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .305903971, g: .602941155, b: .307952493, a: 1}
+        second: {r: .779411793, g: .632932127, b: .447015584, a: 1}
       data:
         first:
           name: _EmissionColorUI

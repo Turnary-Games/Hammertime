@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Leafs 2
+  m_Name: Coin Inner
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -77,13 +77,6 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _MatCap
-        second:
-          m_Texture: {fileID: 2800000, guid: 8320987374e1fb544879fc552b145948, type: 3}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -108,7 +101,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: 0
+        second: .5
       data:
         first:
           name: _BumpScale
@@ -145,7 +138,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .305903971, g: .602941155, b: .307952493, a: 1}
+        second: {r: .779411793, g: .743049741, b: .252162635, a: 1}
       data:
         first:
           name: _EmissionColorUI
