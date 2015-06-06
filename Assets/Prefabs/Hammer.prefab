@@ -285,7 +285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raycastPlainMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 256
   raycastObstacleMask:
     serializedVersion: 2
     m_Bits: 4608
