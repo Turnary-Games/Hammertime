@@ -17,23 +17,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &117750
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 460836}
-  - 135: {fileID: 13523722}
-  - 114: {fileID: 11479514}
-  m_Layer: 0
-  m_Name: Wacking area
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &169092
 GameObject:
   m_ObjectHideFlags: 1
@@ -112,7 +95,7 @@ Transform:
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 468534}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &429644
 Transform:
   m_ObjectHideFlags: 1
@@ -139,18 +122,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 429644}
   m_RootOrder: 1
---- !u!4 &460836
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 117750}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 468534}
-  m_RootOrder: 1
 --- !u!4 &468534
 Transform:
   m_ObjectHideFlags: 1
@@ -162,7 +133,6 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 429644}
-  - {fileID: 460836}
   - {fileID: 407486}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -289,34 +259,10 @@ MonoBehaviour:
   raycastObstacleMask:
     serializedVersion: 2
     m_Bits: 4608
-  wackingArea: {fileID: 11479514}
+  wackingArea: {fileID: 0}
   thump: {fileID: 19803346}
   damage: 1
   attackCooldown: 1
---- !u!114 &11479514
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 117750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aafc8dcb466b3a4418b4969e5df3a268, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  insideTrigger: []
---- !u!135 &13523722
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 117750}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &19803346
 ParticleSystem:
   m_ObjectHideFlags: 1
