@@ -101,19 +101,6 @@ public class Minion : MonoBehaviour {
 		canAttack = true;
 	}
 
-	/*
-	void OnDrawGizmos() {
-		if (target != null) {
-			if (target.targetType == Target.TargetType.checkpoint)
-				Gizmos.color = Color.green;
-			else
-				Gizmos.color = Color.red;
-
-			Gizmos.DrawLine (transform.position, target.GetPosition ());
-		}
-	}
-	*/
-
 	void SetTarget(Target target) {
 		agent.SetDestination (target.GetPosition ());
 		agent.Resume ();
@@ -142,6 +129,7 @@ public class Minion : MonoBehaviour {
 	void Kill() {
 		dead = true;
 		Destroy(gameObject);
+		Explosion.CreateExplosion (transform.position);
 	}
 
 }
