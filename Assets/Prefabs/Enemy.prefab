@@ -73,10 +73,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 413894}
-  - 114: {fileID: 11414608}
-  - 114: {fileID: 11472556}
   - 54: {fileID: 5456920}
   - 195: {fileID: 19515788}
+  - 114: {fileID: 11414608}
+  - 114: {fileID: 11472556}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
