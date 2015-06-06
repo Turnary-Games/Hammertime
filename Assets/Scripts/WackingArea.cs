@@ -13,6 +13,7 @@ public class WackingArea : MonoBehaviour {
 		if (wack != null) {
 			if (!insideTrigger.Contains (wack)) {
 				insideTrigger.Add (wack);
+				
 			}
 		}
 	}

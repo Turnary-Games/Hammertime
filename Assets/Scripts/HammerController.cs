@@ -3,7 +3,8 @@ using System.Collections;
 
 public class HammerController : MonoBehaviour {
 
-	public LayerMask raycastMask;
+	public LayerMask raycastPlainMask;
+	public LayerMask raycastObstacleMask;
 	public WackingArea wackingArea;
 	public ParticleSystem thump;
 	[Space(12)]
@@ -11,40 +12,47 @@ public class HammerController : MonoBehaviour {
 	public float attackCooldown;
 
 	private bool canAttack = true;
+	private Vector3 startPoint;
 	private Vector3 point;
 	private Animator anim;
 
 	void Start() {
 		anim = GetComponent<Animator> ();
+		startPoint = transform.position;
 	}
 
 	void Update () {
 		Raycast ();
 		
-		transform.position = point;
+		transform.position = new Vector3 (point.x, Mathf.Max (point.y, startPoint.y), point.z);
 	}
 
 	void Raycast() {
 		// Variables
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		RaycastHit hit;
+		RaycastHit obstacleHit;
+		RaycastHit plainHit;
 
-		// Cast the ray
-		if(Physics.Raycast (ray, out hit, Mathf.Infinity, raycastMask)) {
-			HandleHit(hit);
+		// Cast the rays
+		if(Physics.Raycast (ray, out plainHit, Mathf.Infinity, raycastPlainMask)) {
+			print ("HIT!");
+			HandlePlainHit(plainHit);
 		}
-	}
+		if(Physics.Raycast (ray, out obstacleHit, Mathf.Infinity, raycastObstacleMask)) {
+			HandleObstacleHit(obstacleHit);
+		}
 
-	void HandleHit(RaycastHit hit) {
 		if (Input.GetMouseButtonDown (0)) {
 			Punch ();
 		}
+	}
 
-		if (hit.collider.tag == "Skull projectile") {
-			point = hit.collider.transform.position + Vector3.up * hit.collider.bounds.size.y/2;
-		} else {
-			point = hit.point;
-		}
+	void HandleObstacleHit(RaycastHit hit) {
+		point = hit.collider.attachedRigidbody != null ? hit.collider.attachedRigidbody.transform.position : hit.collider.transform.position;
+	}
+
+	void HandlePlainHit(RaycastHit hit) {
+		point = hit.point;
 	}
 
 	void Punch() {

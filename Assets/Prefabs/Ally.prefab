@@ -79,7 +79,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 472478}
   - 64: {fileID: 6477424}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: pCube4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 478362}
   - 64: {fileID: 6453920}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: pCube2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 424024}
   - 64: {fileID: 6496190}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: pCube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,8 +335,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 128948}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.39999998, y: 1, z: -61}
+  m_LocalRotation: {x: 0, y: .130526081, z: 0, w: .991444945}
+  m_LocalPosition: {x: -30.1000004, y: 1, z: -58.0999985}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 439612}

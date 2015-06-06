@@ -7970,18 +7970,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 407486, guid: 2bf5f3f5d19b1614f9e13dc2d27a633f, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 407486, guid: 2bf5f3f5d19b1614f9e13dc2d27a633f, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 407486, guid: 2bf5f3f5d19b1614f9e13dc2d27a633f, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2bf5f3f5d19b1614f9e13dc2d27a633f, type: 2}
   m_IsPrefabParent: 0
@@ -8886,6 +8874,46 @@ Transform:
   - {fileID: 564849231}
   m_Father: {fileID: 2031918248}
   m_RootOrder: 1
+--- !u!1 &1014175875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1014175877}
+  - 114: {fileID: 1014175876}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1014175876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1014175875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a109431040b3aa4b8b5b0362519bebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 137178, guid: 211888cc895b1c54eb4acc967dc6c731, type: 2}
+--- !u!4 &1014175877
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1014175875}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &1018208163
 GameObject:
   m_ObjectHideFlags: 0
@@ -13503,7 +13531,7 @@ GameObject:
   - 4: {fileID: 1166938922}
   - 33: {fileID: 1166938921}
   - 64: {fileID: 1166938920}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Raycast plain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
