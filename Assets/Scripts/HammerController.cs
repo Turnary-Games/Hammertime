@@ -5,7 +5,6 @@ public class HammerController : MonoBehaviour {
 
 	public LayerMask raycastPlainMask;
 	public LayerMask raycastObstacleMask;
-	public WackingArea wackingArea;
 	public ParticleSystem thump;
 	[Space(12)]
 	public int damage = 1;
@@ -15,6 +14,8 @@ public class HammerController : MonoBehaviour {
 	private Vector3 startPoint;
 	private Vector3 point;
 	private Animator anim;
+
+	[HideInInspector] public Wackable wackingTarget;
 
 	void Start() {
 		anim = GetComponent<Animator> ();
@@ -35,11 +36,12 @@ public class HammerController : MonoBehaviour {
 
 		// Cast the rays
 		if(Physics.Raycast (ray, out plainHit, Mathf.Infinity, raycastPlainMask)) {
-			print ("HIT!");
 			HandlePlainHit(plainHit);
 		}
-		if(Physics.Raycast (ray, out obstacleHit, Mathf.Infinity, raycastObstacleMask)) {
-			HandleObstacleHit(obstacleHit);
+		if (Physics.Raycast (ray, out obstacleHit, Mathf.Infinity, raycastObstacleMask)) {
+			HandleObstacleHit (obstacleHit);
+		} else {
+			wackingTarget = null;
 		}
 
 		if (Input.GetMouseButtonDown (0)) {
@@ -48,7 +50,12 @@ public class HammerController : MonoBehaviour {
 	}
 
 	void HandleObstacleHit(RaycastHit hit) {
-		point = hit.collider.attachedRigidbody != null ? hit.collider.attachedRigidbody.transform.position : hit.collider.transform.position;
+		GameObject obj = hit.collider.attachedRigidbody != null ? hit.collider.attachedRigidbody.gameObject : hit.collider.gameObject;
+		Wackable wack = obj.GetComponent<Wackable> ();
+		if (wack) {
+			wackingTarget = wack;
+			point = obj.transform.position;
+		}
 	}
 
 	void HandlePlainHit(RaycastHit hit) {
@@ -70,10 +77,8 @@ public class HammerController : MonoBehaviour {
 
 	void Wack() {
 		thump.Play ();
-		foreach (Wackable wack in wackingArea.insideTrigger) {
-			wack.Wack ();
-		}
-		wackingArea.Cleanup();
+		if (wackingTarget != null)
+			wackingTarget.Wack (damage);
 	}
 
 }

@@ -77,6 +77,7 @@ public class Projectile : MonoBehaviour {
 	void Kill() {
 		dead = true;
 		Destroy(gameObject);
+		Explosion.CreateExplosion (transform.position);
 	}
 	#endregion
 	

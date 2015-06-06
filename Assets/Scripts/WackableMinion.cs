@@ -13,5 +13,4 @@ public class WackableMinion : Wackable {
 	public override void Wack(int damage = 1) {
 		dead = minion.Damage (damage) ? true : dead;
 	}
-
 }
