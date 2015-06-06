@@ -5,6 +5,7 @@ public class HammerController : MonoBehaviour {
 
 	public LayerMask raycastMask;
 	public WackingArea wackingArea;
+	public ParticleSystem thump;
 	[Space(12)]
 	public int damage = 1;
 	public float attackCooldown;
@@ -48,7 +49,6 @@ public class HammerController : MonoBehaviour {
 
 	void Punch() {
 		if (canAttack) {
-			Wack ();
 			anim.SetTrigger("Swing");
 			StartCoroutine(AttackCooldown());
 		}
@@ -61,6 +61,7 @@ public class HammerController : MonoBehaviour {
 	}
 
 	void Wack() {
+		thump.Play ();
 		foreach (Wackable wack in wackingArea.insideTrigger) {
 			wack.Wack ();
 		}
