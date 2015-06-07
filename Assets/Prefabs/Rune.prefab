@@ -295,6 +295,7 @@ GameObject:
   - 54: {fileID: 5432988}
   - 114: {fileID: 11465902}
   - 114: {fileID: 11462230}
+  - 114: {fileID: 11416450}
   m_Layer: 0
   m_Name: Rune
   m_TagString: Untagged
@@ -1069,6 +1070,21 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
+--- !u!114 &11416450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0745e2687da844695da16e2c8df315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  side: 0
+  goal: {fileID: 0}
+  height: 1
+  rotation: 0
 --- !u!114 &11460948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1102,7 +1118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 195174}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46e0372123fcfbd478791a411a1545f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ef7bd0b6e3d5604daf623895669e8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11466616
