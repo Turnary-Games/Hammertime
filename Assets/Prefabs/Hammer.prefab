@@ -93,8 +93,8 @@ GameObject:
   - 4: {fileID: 468534}
   - 95: {fileID: 9512246}
   - 54: {fileID: 5467888}
-  - 114: {fileID: 11409438}
   - 120: {fileID: 12078664}
+  - 114: {fileID: 11409438}
   m_Layer: 0
   m_Name: Hammer
   m_TagString: Untagged
@@ -323,7 +323,7 @@ MonoBehaviour:
     m_Bits: 512
   thump: {fileID: 19803346}
   damage: 1
-  attackCooldown: 1
+  attackCooldown: .5
   wackingTarget: {fileID: 0}
 --- !u!120 &12078664
 LineRenderer:

@@ -293,8 +293,8 @@ GameObject:
   - 4: {fileID: 422778}
   - 95: {fileID: 9541904}
   - 54: {fileID: 5432988}
-  - 114: {fileID: 11462230}
   - 114: {fileID: 11465902}
+  - 114: {fileID: 11462230}
   m_Layer: 0
   m_Name: Rune
   m_TagString: Untagged

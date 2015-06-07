@@ -3,11 +3,12 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-	public Minion target;
+	[HideInInspector] public Minion target;
 	public Transform mark;
 	public float speed;
 
 	public int health = 1;
+	public int damage = 1;
 	private bool dead;
 
 	void Update() {
@@ -23,7 +24,6 @@ public class Projectile : MonoBehaviour {
 		
 		if (minion == target) {
 			HitTarget ();
-			Kill ();
 		}
 	}
 
@@ -58,7 +58,8 @@ public class Projectile : MonoBehaviour {
 
 	#region Damage and health (HitTarget, Damage, HealthChange, Kill)
 	void HitTarget() {
-		target.Damage ();
+		target.Damage (damage);
+		Kill (true);
 	}
 	
 	// returns Boolean: true=died, false=survived
@@ -74,10 +75,11 @@ public class Projectile : MonoBehaviour {
 		}
 	}
 	
-	void Kill() {
+	void Kill(bool withoutExplosion = false) {
 		dead = true;
 		Destroy(gameObject);
-		Explosion.CreateExplosion (transform.position);
+		if (!withoutExplosion)
+			Explosion.CreateExplosion (transform.position);
 	}
 	#endregion
 	
