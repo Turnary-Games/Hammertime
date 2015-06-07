@@ -15,9 +15,12 @@ public class Minion : MonoBehaviour {
 	public Side side;
 	public int health = 1;
 	public int damage = 1;
-	public float attackCooldown;
-	private bool canAttack = true;
+	public float attackWindup;
 
+	private Minion attackVictim;
+	private Coroutine attackCoroutine;
+
+	private bool canAttack = true;
 	private bool dead;
 	private State state = State.idle;
 
@@ -35,17 +38,19 @@ public class Minion : MonoBehaviour {
 		Minion inAttackRange = attackRange.NearestMinion ();
 		Minion inVisionRange = visionRange.NearestMinion ();
 
-		if (inAttackRange != null) {
+		if (inAttackRange != null || attackVictim != null) {
 			// Attack dat bastard
 			Attack (inAttackRange);
 		} else if (inVisionRange != null) {
-			// Follow dat fellow
+			// Chase 'em
 			Follow (inVisionRange);
 		} else {
+			// Move towards goal
 			Move ();
 		}
 	}
 
+	#region Main instructions (Attack, Follow, Move)
 	void Attack(Minion victim) {
 		if (state != State.attacking) {
 			state = State.attacking;
@@ -55,8 +60,19 @@ public class Minion : MonoBehaviour {
 			agent.updateRotation = false;
 		}
 
+		// No existing victim
+		if (attackVictim == null)
+			attackVictim = victim;
+
+		// Victim change
+		if (attackVictim != victim) {
+			canAttack = true;
+			if (attackCoroutine != null)
+				StopCoroutine(attackCoroutine);
+		}
+
+		Punch ();
 		Stare (victim.transform.position);
-		Punch (victim);
 	}
 
 	void Follow(Minion victim) {
@@ -81,6 +97,7 @@ public class Minion : MonoBehaviour {
 			agent.updateRotation = true;
 		}
 	}
+	#endregion
 
 	void Stare(Vector3 position) {
 		Vector3 lookDir = new Vector3 (position.x, transform.position.y, position.z) - transform.position;
@@ -88,31 +105,42 @@ public class Minion : MonoBehaviour {
 		transform.rotation = Quaternion.LookRotation (newDir);
 	}
 
-	void Punch(Minion victim) {
+	#region Attacking (Punch, AttackCooldown)
+	void Punch() {
 		if (canAttack) {
-			victim.Damage(damage);
-			StartCoroutine(AttackCooldown());
+			attackCoroutine = StartCoroutine(AttackWindup());
 		}
 	}
 
-	IEnumerator AttackCooldown() {
+	IEnumerator AttackWindup() {
 		canAttack = false;
-		yield return new WaitForSeconds (attackCooldown);
+		yield return new WaitForSeconds (attackWindup);
+
+		// Hasen't died while winding up
+		if (attackVictim != null)
+			attackVictim.Damage (damage);
+
+		attackCoroutine = null;
+		attackVictim = null;
 		canAttack = true;
 	}
+	#endregion
 
 	void SetTarget(Target target) {
 		agent.SetDestination (target.GetPosition ());
 		agent.Resume ();
 	}
 
+	#region Comparison methods (SameSide)
 	public static bool SameSide(Minion a, Minion b) {
 		return a.SameSide (b);
 	}
 	public bool SameSide (Minion other) {
 		return this.side == other.side;
 	}
+	#endregion
 
+	#region Raw damage methods (Damage, HealthChange, Die)
 	// returns Boolean: true=died, false=survived
 	public bool Damage(int amount = 1) {
 		health -= amount;
@@ -122,14 +150,15 @@ public class Minion : MonoBehaviour {
 
 	void HealthChange() {
 		if (health <= 0 && !dead) {
-			Kill();
+			Die();
 		}
 	}
 
-	void Kill() {
+	void Die() {
 		dead = true;
 		Destroy(gameObject);
 		Explosion.CreateExplosion (transform.position);
 	}
+	#endregion
 
 }

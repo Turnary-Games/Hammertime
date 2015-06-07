@@ -13,7 +13,7 @@ GameObject:
   - 114: {fileID: 11408756}
   m_Layer: 0
   m_Name: Ally
-  m_TagString: Untagged
+  m_TagString: Minion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,7 +334,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 128948}
-  m_LocalRotation: {x: 0, y: .130526081, z: 0, w: .991444945}
+  m_LocalRotation: {x: 0, y: .199367955, z: 0, w: .979924679}
   m_LocalPosition: {x: -30.1000004, y: 1, z: -58.0999985}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -574,7 +574,7 @@ MonoBehaviour:
   side: 0
   health: 1
   damage: 1
-  attackCooldown: 1
+  attackWindup: .5
 --- !u!114 &11482830
 MonoBehaviour:
   m_ObjectHideFlags: 1
