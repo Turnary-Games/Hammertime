@@ -34,15 +34,15 @@ public class HammerController : MonoBehaviour {
 		RaycastHit obstacleHit;
 		RaycastHit plainHit;
 
-		// Cast the rays
-		if(Physics.Raycast (ray, out plainHit, Mathf.Infinity, raycastPlainMask)) {
+		// Cast a ray for the plain
+		if(Physics.Raycast (ray, out plainHit, Mathf.Infinity, raycastPlainMask))
 			HandlePlainHit(plainHit);
-		}
-		if (Physics.Raycast (ray, out obstacleHit, Mathf.Infinity, raycastObstacleMask)) {
+
+		// Cast a ray for any misc. obstacles
+		if (Physics.Raycast (ray, out obstacleHit, Mathf.Infinity, raycastObstacleMask))
 			HandleObstacleHit (obstacleHit);
-		} else {
+		else
 			wackingTarget = null;
-		}
 
 		if (Input.GetMouseButtonDown (0)) {
 			Punch ();

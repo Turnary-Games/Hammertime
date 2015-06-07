@@ -3,10 +3,9 @@ using System.Collections;
 
 public class Rotate : MonoBehaviour 
 {
-	public float speed; 
+	public Vector3 rotation; 
 
-	void Update () 
-	{
-		transform.Rotate (new Vector3 (0, 30, 0) * Time.deltaTime * speed);
+	void Update () {
+		transform.Rotate (Time.deltaTime * rotation);
 	}
 }
