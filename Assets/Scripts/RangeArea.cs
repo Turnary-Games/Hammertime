@@ -34,8 +34,15 @@ public class RangeArea : MonoBehaviour {
 		}
 	}
 
+	void Cleanup() {
+		insideTrigger.RemoveAll (delegate(Minion obj) {
+			return obj == null;
+		});
+	}
+
 	public Minion NearestMinion() {
 		Minion nearest = null;
+		Cleanup ();
 
 		insideTrigger.ForEach (delegate(Minion minion) {
 			if (nearest == null) nearest = minion;

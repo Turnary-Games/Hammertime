@@ -11,6 +11,9 @@ public class GameController : MonoBehaviour {
 	[Space(12)]
 	public GameObject allyPrefab;
 	public GameObject enemyPrefab;
+	[Space(12)]
+	public int coins;
+	private MenuItem selectedItem;
 
 	void Awake() {
 		Explosion.prefab = explosionPrefab;
@@ -36,6 +39,29 @@ public class GameController : MonoBehaviour {
 		spawnpoints.ForEach (delegate(Spawnpoint obj) {
 			obj.Spawn(obj.side == Side.ally ? allyPrefab : enemyPrefab).transform.SetParent(transform);
 		});
+	}
+
+	public void Select(MenuItem item) {
+		selectedItem = item;
+	}
+
+	public void Deselect() {
+		selectedItem = null;
+	}
+
+	public void PurchaseSelected(Spawnpoint spawnpoint) {
+		if (selectedItem != null) {
+			if (coins >= selectedItem.price) {
+				spawnpoint.Spawn(selectedItem.prefab);
+				coins -= selectedItem.price;
+			}
+		}
+
+		Deselect ();
+	}
+
+	public bool IsSelected(MenuItem item) {
+		return selectedItem == item;
 	}
 
 }

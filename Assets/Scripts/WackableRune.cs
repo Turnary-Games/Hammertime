@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(RuneController))]
 public class WackableRune : Wackable {
 
 	private RuneController rune;
@@ -10,7 +11,7 @@ public class WackableRune : Wackable {
 	}
 	
 	public override void Wack(int damage = 1) {
-		rune.SpawnMinion ();
+		rune.Purchase ();
 	}
 
 }

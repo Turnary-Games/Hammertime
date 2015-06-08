@@ -572,7 +572,7 @@ MonoBehaviour:
   visionRange: {fileID: 11484190}
   stareAngularSpeed: 2
   side: 0
-  health: 1
+  health: 5
   damage: 1
   attackWindup: .5
 --- !u!114 &11482830

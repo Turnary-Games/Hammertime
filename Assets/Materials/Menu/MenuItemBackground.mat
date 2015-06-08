@@ -6,10 +6,10 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Metal
+  m_Name: MenuItemBackground
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
+  m_ShaderKeywords: _EMISSION
+  m_LightmapFlags: 2
   m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
@@ -101,7 +101,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: .109999999
+        second: 0
       data:
         first:
           name: _BumpScale
@@ -121,7 +121,7 @@ Material:
       data:
         first:
           name: _EmissionScaleUI
-        second: 0
+        second: 1
       data:
         first:
           name: _Mode
@@ -129,17 +129,17 @@ Material:
       data:
         first:
           name: _Metallic
-        second: .159999996
+        second: 0
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 0}
+        second: {r: 1, g: 0, b: 0, a: 1}
       data:
         first:
           name: _Color
-        second: {r: .562283754, g: .613936245, b: .764705896, a: 1}
+        second: {r: .808823526, g: .428200692, b: .65824753, a: 1}
       data:
         first:
           name: _EmissionColorUI
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: 1, g: 0, b: 0, a: 1}
