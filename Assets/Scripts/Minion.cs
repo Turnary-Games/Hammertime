@@ -2,34 +2,48 @@
 using System.Collections;
 
 public enum Side { ally, enemy };
-public enum State { moving, attacking, following, idle };
+public enum State { moving, attacking, following, idle, arrived };
 
 public class Minion : MonoBehaviour {
 
-	[Space(12)]
+	[Header("Variables (DONT ALTER)")]
+
 	public Checkpoint goal;
 	public RangeArea attackRange;
 	public RangeArea visionRange;
-	public float stareAngularSpeed = 1;
-	[Space(12)]
+	public GameObject arrivePrefab;
+
+	[Header("Settings")]
+
+	[Tooltip("Will only attack minions on other /side/")]
 	public Side side;
+	[Tooltip("ENEMY ONLY! Gold dropped upon death")]
+	public int reward = 1; // coins
+	[Tooltip("Hitpoints to kill")]
 	public int health = 1;
+	[Tooltip("Damage dealt to minions")]
 	public int damage = 1;
+	[Tooltip("Delay in seconds an attack takes")]
 	public float attackWindup;
+	[Tooltip("Movement speed")]
+	public float agentSpeed;
+	[Tooltip("Rotation speed for turning towards a minion when fighting")]
+	public float stareAngularSpeed = 1;
 
 	private Minion attackVictim;
 	private Coroutine attackCoroutine;
 
-	private bool canAttack = true;
+	private bool canAttack = true; // deactivates on each hit, for cooldown effect
 	private bool dead;
 	private State state = State.idle;
-
+	
 	// Pathfinding
 	private NavMeshAgent agent;
 
 	void Start() {
 		agent = GetComponent<NavMeshAgent>();
-
+		agent.speed = agentSpeed;
+		
 		Move ();
 	}
 
@@ -38,19 +52,24 @@ public class Minion : MonoBehaviour {
 		Minion inAttackRange = attackRange.NearestMinion ();
 		Minion inVisionRange = visionRange.NearestMinion ();
 
-		if (inAttackRange != null || attackVictim != null) {
-			// Attack dat bastard
-			Attack (inAttackRange);
-		} else if (inVisionRange != null) {
-			// Chase 'em
-			Follow (inVisionRange);
-		} else {
-			// Move towards goal
-			Move ();
+		if (state == State.arrived || ReachedDestination ())
+			Arrive ();
+
+		if (state != State.arrived) {
+			if (inAttackRange != null || attackVictim != null) {
+				// Attack dat bastard
+				Attack (inAttackRange);
+			} else if (inVisionRange != null) {
+				// Chase 'em
+				Follow (inVisionRange);
+			} else {
+				// Move towards goal
+				Move ();
+			}
 		}
 	}
 
-	#region Main instructions (Attack, Follow, Move)
+	#region Main instructions (Attack, Follow, Move, Arrive)
 	void Attack(Minion victim) {
 		if (state != State.attacking) {
 			state = State.attacking;
@@ -92,9 +111,24 @@ public class Minion : MonoBehaviour {
 			state = State.moving;
 
 			// Initial
-			
+			if (goal == null)
+				Debug.LogError("The minion must have a goal with life :)");
+
 			SetTarget(new Target(goal));
 			agent.updateRotation = true;
+		}
+	}
+
+	void Arrive() {
+		if (state != State.arrived) {
+			state = State.arrived;
+
+			// Remove all unnessesary stuffs
+			Destroy(gameObject);
+
+			GameObject clone = Instantiate(arrivePrefab,transform.position,transform.rotation) as GameObject;
+			MinionArrival arrival = clone.GetComponent<MinionArrival>();
+			arrival.side = side;
 		}
 	}
 	#endregion
@@ -103,6 +137,12 @@ public class Minion : MonoBehaviour {
 		Vector3 lookDir = new Vector3 (position.x, transform.position.y, position.z) - transform.position;
 		Vector3 newDir = Vector3.RotateTowards (transform.forward, lookDir, Time.deltaTime * stareAngularSpeed, 0.0f);
 		transform.rotation = Quaternion.LookRotation (newDir);
+	}
+
+	bool ReachedDestination() {
+		float dist = agent.remainingDistance;
+		float stop = agent.stoppingDistance;
+		return dist != Mathf.Infinity && agent.pathStatus == NavMeshPathStatus.PathComplete && dist <= stop;
 	}
 
 	#region Attacking (Punch, AttackCooldown)
@@ -158,6 +198,9 @@ public class Minion : MonoBehaviour {
 		dead = true;
 		Destroy(gameObject);
 		Explosion.CreateExplosion (transform.position);
+
+		if (side == Side.enemy)
+			GameController.Get ().SpawnCoins (transform.position, reward);
 	}
 	#endregion
 

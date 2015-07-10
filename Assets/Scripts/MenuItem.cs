@@ -5,9 +5,21 @@ public class MenuItem : MonoBehaviour {
 
 	public GameObject prefab;
 	public int price = 1;
+	public TextMesh priceText;
+
+	private GameController gameController;
+
+	public void Start() {
+		priceText.text = price.ToString ();
+		gameController = FindObjectOfType<GameController> ();
+	}
 
 	public void Select() {
-		FindObjectOfType<GameController> ().Select (this);
+		gameController.Select (this);
+	}
+
+	public bool IsSelected() {
+		return gameController.IsSelected (this);
 	}
 
 }

@@ -93,7 +93,6 @@ GameObject:
   - 4: {fileID: 468534}
   - 95: {fileID: 9512246}
   - 54: {fileID: 5467888}
-  - 120: {fileID: 12078664}
   - 114: {fileID: 11409438}
   m_Layer: 0
   m_Name: Hammer
@@ -322,46 +321,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   thump: {fileID: 19803346}
+  mesh: {fileID: 142284}
   damage: 1
   attackCooldown: .5
   wackingTarget: {fileID: 0}
---- !u!120 &12078664
-LineRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 172832}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 0
-  m_Materials:
-  - {fileID: 2100000, guid: e68b329957e362548845abe9da99f96c, type: 2}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
-  m_ProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_Positions:
-  - {x: 0, y: 100, z: 0}
-  - {x: 0, y: -100, z: 0}
-  m_Parameters:
-    startWidth: .200000003
-    endWidth: .200000003
-    m_StartColor:
-      serializedVersion: 2
-      rgba: 4294967295
-    m_EndColor:
-      serializedVersion: 2
-      rgba: 4294967295
-  m_UseWorldSpace: 0
 --- !u!198 &19803346
 ParticleSystem:
   m_ObjectHideFlags: 1

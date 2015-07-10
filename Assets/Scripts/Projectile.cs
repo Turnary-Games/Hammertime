@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour {
 
 	public int health = 1;
 	public int damage = 1;
+	public int reward = 1;
 	private bool dead;
 
 	void Update() {
@@ -59,7 +60,7 @@ public class Projectile : MonoBehaviour {
 	#region Damage and health (HitTarget, Damage, HealthChange, Kill)
 	void HitTarget() {
 		target.Damage (damage);
-		Kill (true);
+		Kill (target.health <= 0);
 	}
 	
 	// returns Boolean: true=died, false=survived

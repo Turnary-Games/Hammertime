@@ -6,11 +6,14 @@ public class HammerController : MonoBehaviour {
 	public LayerMask raycastPlainMask;
 	public LayerMask raycastObstacleMask;
 	public ParticleSystem thump;
+	public GameObject mesh;
 	[Space(12)]
 	public int damage = 1;
 	public float attackCooldown;
 
 	private bool canAttack = true;
+	private bool visable = true;
+	private bool isVisable = true;
 	private Vector3 startPoint;
 	private Vector3 point;
 	private Animator anim;
@@ -34,6 +37,8 @@ public class HammerController : MonoBehaviour {
 		RaycastHit obstacleHit;
 		RaycastHit plainHit;
 
+		visable = true;
+
 		// Cast a ray for the plain
 		if(Physics.Raycast (ray, out plainHit, Mathf.Infinity, raycastPlainMask))
 			HandlePlainHit(plainHit);
@@ -44,28 +49,43 @@ public class HammerController : MonoBehaviour {
 		else
 			wackingTarget = null;
 
+		SetVisable (visable);
+
 		if (Input.GetMouseButtonDown (0)) {
 			Punch ();
 		}
+
 	}
 
 	void HandleObstacleHit(RaycastHit hit) {
 		GameObject obj = hit.collider.attachedRigidbody != null ? hit.collider.attachedRigidbody.gameObject : hit.collider.gameObject;
+
+		if (obj.tag == "InvisHammer")
+			visable = false;
+
 		Wackable wack = obj.GetComponent<Wackable> ();
 		if (wack) {
 			wackingTarget = wack;
 			point = obj.transform.position;
+		} else {
+			wackingTarget = null;
 		}
 	}
 
 	void HandlePlainHit(RaycastHit hit) {
 		point = hit.point;
+		if (hit.collider.tag == "InvisHammer")
+			visable = false;
 	}
 
 	void Punch() {
 		if (canAttack) {
-			anim.SetTrigger("Swing");
-			StartCoroutine(AttackCooldown());
+			if (isVisable) {
+				anim.SetTrigger("Swing");
+				StartCoroutine(AttackCooldown());
+			} else {
+				Wack ();
+			}
 		}
 	}
 
@@ -75,10 +95,21 @@ public class HammerController : MonoBehaviour {
 		canAttack = true;
 	}
 
+	// Called from animation event of the "Swing"
 	void Wack() {
-		thump.Play ();
-		if (wackingTarget != null)
+		if (wackingTarget != null) {
 			wackingTarget.Wack (damage);
+
+			if (isVisable)
+				thump.Play ();
+		}
+	}
+
+	void SetVisable(bool state) {
+		if (state != isVisable) {
+			mesh.SetActive (state);
+			isVisable = state;
+		}
 	}
 
 }
