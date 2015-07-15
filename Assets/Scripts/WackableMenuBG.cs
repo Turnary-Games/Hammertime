@@ -5,7 +5,7 @@ public class WackableMenuBG : Wackable {
 
 	private GameController gameController;
 
-	void Start() {
+	public override void Init() {
 		gameController = FindObjectOfType<GameController> ();
 	}
 

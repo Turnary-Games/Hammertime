@@ -5,12 +5,10 @@ using System.Collections;
 public class WackableMenuItem : Wackable {
 
 	private MenuItem menuItem;
-	private HammerController hammer;
 	private GameController gameController;
 	
-	void Start() {
+	public override void Init() {
 		menuItem = GetComponent<MenuItem> ();
-		hammer = FindObjectOfType<HammerController> ();
 		gameController = FindObjectOfType<GameController> ();
 	}
 	
@@ -20,7 +18,7 @@ public class WackableMenuItem : Wackable {
 	}
 
 	void Update () {
-		if (anim != null) {
+		if (anim != null && hammer != null) {
 			anim.SetBool ("Hover", hammer.wackingTarget == this);
 			anim.SetBool ("Selected", menuItem.IsSelected ());
 			anim.SetBool("Too Pricy", gameController.coins < menuItem.price);

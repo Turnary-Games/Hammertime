@@ -6,14 +6,12 @@ public class WackableProjectile : Wackable {
 
 	private Projectile projectile;
 	
-	void Start() {
+	public override void Init() {
 		projectile = GetComponent<Projectile> ();
 	}
 
 	public override void Wack(int damage = 1) {
-		dead = projectile.Damage (damage) ? true : dead;
-
-		if (dead)
+		if (projectile.Damage (damage))
 			GameController.Get ().SpawnCoins (transform.position, projectile.reward);
 	}
 

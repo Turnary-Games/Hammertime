@@ -4,6 +4,15 @@ using System.Collections;
 public enum Side { ally, enemy };
 public enum State { moving, attacking, following, idle, arrived };
 
+static class SideMethods {
+	public static Side Invert(this Side side) {
+		if (side == Side.ally)
+			return Side.enemy;
+		else
+			return Side.ally;
+	}
+}
+
 public class Minion : MonoBehaviour {
 
 	[Header("Variables (DONT ALTER)")]
@@ -30,30 +39,27 @@ public class Minion : MonoBehaviour {
 	[Tooltip("Rotation speed for turning towards a minion when fighting")]
 	public float stareAngularSpeed = 1;
 
-	private Minion attackVictim;
-	private Coroutine attackCoroutine;
+	protected Minion attackVictim;
+	protected Coroutine attackCoroutine;
 
-	private bool canAttack = true; // deactivates on each hit, for cooldown effect
-	private bool dead;
-	private State state = State.idle;
+	protected bool canAttack = true; // deactivates on each hit, for cooldown effect
+	protected bool dead;
+	protected State state = State.idle;
 	
 	// Pathfinding
 	private NavMeshAgent agent;
 
-	void Start() {
+	protected virtual void Start() {
 		agent = GetComponent<NavMeshAgent>();
 		agent.speed = agentSpeed;
 		
 		Move ();
 	}
 
-	void Update() {
+	protected virtual void Update() {
 		// Check for enemies
 		Minion inAttackRange = attackRange.NearestMinion ();
 		Minion inVisionRange = visionRange.NearestMinion ();
-
-		if (state == State.arrived || ReachedDestination ())
-			Arrive ();
 
 		if (state != State.arrived) {
 			if (inAttackRange != null || attackVictim != null) {
@@ -70,7 +76,7 @@ public class Minion : MonoBehaviour {
 	}
 
 	#region Main instructions (Attack, Follow, Move, Arrive)
-	void Attack(Minion victim) {
+	protected virtual void Attack(Minion victim) {
 		if (state != State.attacking) {
 			state = State.attacking;
 
@@ -94,7 +100,7 @@ public class Minion : MonoBehaviour {
 		Stare (victim.transform.position);
 	}
 
-	void Follow(Minion victim) {
+	protected void Follow(Minion victim) {
 		if (state != State.following) {
 			state = State.following;
 
@@ -106,7 +112,7 @@ public class Minion : MonoBehaviour {
 		Stare (victim.transform.position);
 	}
 
-	void Move() {
+	protected void Move() {
 		if (state != State.moving) {
 			state = State.moving;
 
@@ -119,7 +125,7 @@ public class Minion : MonoBehaviour {
 		}
 	}
 
-	void Arrive() {
+	public virtual void Arrive() {
 		if (state != State.arrived) {
 			state = State.arrived;
 
@@ -133,26 +139,20 @@ public class Minion : MonoBehaviour {
 	}
 	#endregion
 
-	void Stare(Vector3 position) {
+	protected void Stare(Vector3 position) {
 		Vector3 lookDir = new Vector3 (position.x, transform.position.y, position.z) - transform.position;
 		Vector3 newDir = Vector3.RotateTowards (transform.forward, lookDir, Time.deltaTime * stareAngularSpeed, 0.0f);
 		transform.rotation = Quaternion.LookRotation (newDir);
 	}
 
-	bool ReachedDestination() {
-		float dist = agent.remainingDistance;
-		float stop = agent.stoppingDistance;
-		return dist != Mathf.Infinity && agent.pathStatus == NavMeshPathStatus.PathComplete && dist <= stop;
-	}
-
 	#region Attacking (Punch, AttackCooldown)
-	void Punch() {
+	protected void Punch() {
 		if (canAttack) {
 			attackCoroutine = StartCoroutine(AttackWindup());
 		}
 	}
 
-	IEnumerator AttackWindup() {
+	protected IEnumerator AttackWindup() {
 		canAttack = false;
 		yield return new WaitForSeconds (attackWindup);
 
@@ -166,7 +166,7 @@ public class Minion : MonoBehaviour {
 	}
 	#endregion
 
-	void SetTarget(Target target) {
+	protected void SetTarget(Target target) {
 		agent.SetDestination (target.GetPosition ());
 		agent.Resume ();
 	}
@@ -188,16 +188,16 @@ public class Minion : MonoBehaviour {
 		return health <= 0;
 	}
 
-	void HealthChange() {
+	protected void HealthChange() {
 		if (health <= 0 && !dead) {
 			Die();
 		}
 	}
 
-	void Die() {
+	protected void Die() {
 		dead = true;
 		Destroy(gameObject);
-		Explosion.CreateExplosion (transform.position);
+		Explosion.CreateExplosion (transform.position,0);
 
 		if (side == Side.enemy)
 			GameController.Get ().SpawnCoins (transform.position, reward);

@@ -4,65 +4,140 @@ using System.Collections;
 public class Projectile : MonoBehaviour {
 
 	[HideInInspector] public Minion target;
-	public Transform mark;
-	public float speed;
 
+	[Header("Variables (DONT ALTER)")]
+	
+	public ProjectileMark mark;
+	public BoxCollider boxCollider;
+
+	[Header("Behaviour settings")]
+
+	[Tooltip("What should the projectile do if its target dies before it reaches it?\n\n"+
+	         "<Explode In Place>\nJust explode the instance it notices its target is dead.\n\n"+
+	         "<Find New Target>\nTry to find a new target, if not then just /explode in place/.\n\n"+
+	         "<Explode At Target>\nKeep travelling towards where the target died and explode there.")]
+	public TargetDeadAction ifTargetDies;
+	[Tooltip("When has the projectile arrived at the target?\n\n"+
+	         "<Contact With Mark>\nOnly explode when it reaches the mark.\n\n"+
+	         "<Contact With Minion>\nOnly explode when it comes in contact with the target minion. "+
+	         "Not compatible with /Explode At Target/ action if the target dies before it reaches it.\n\n"+
+	         "<Both>\nWill explode when it reaches the mark if it doesn't collide with the target minion on the way.")]
+	public ExplodeType explodeWhen;
+	[Tooltip("How should the damage be dealt?\n\n"+
+	         "<Splash>\nDeals damage from the mark to all nearby minions in a radius defined in the explosion prefab.\n\n"+
+	         "<Only To Target>\nWill only deal damage to the target. "+
+	         "Not compatible with /Explode At Target/ action if the target does before it reaches it.")]
+	public DamageType damageType;
+
+	[Header("Value settings")]
+	[Tooltip("Movement speed in units per second")]
+	public float speed;
+	[Tooltip("Hitpoints, can take /health/ damage before dying. Can only currently take damage from the hammer")]
 	public int health = 1;
+	[Tooltip("Damage dealt to target minion on impact")]
 	public int damage = 1;
+	[Tooltip("Coins dropped if killed by the hammer")]
 	public int reward = 1;
+
 	private bool dead;
 
-	void Update() {
-		FindTarget ();
-		if (target != null) {
-			MoveSkull ();
-			MoveMark ();
+	void Start() {
+
+		if (ifTargetDies == TargetDeadAction.explodeAtTarget) {
+			if (explodeWhen == ExplodeType.contactWithMinion)
+				Debug.LogError("Warning! ExplodeAtTarget and ContactWithMinion are not compatible!");
+			if (damageType == DamageType.onlyToTarget)
+				Debug.LogError("Warning! ExplodeAtTarget and OnlyToTarget are not compatible!");
 		}
+
+		if (target != null) {
+			mark.transform.SetParent(transform.parent,true);
+			mark.transform.rotation = Quaternion.identity;
+			MoveMark ();
+		} else
+			Kill (true);
 	}
 
 	void OnTriggerEnter(Collider other) {
-		Minion minion = GetMinion (other);
-		
-		if (minion == target) {
-			HitTarget ();
+		GameObject obj = other.attachedRigidbody != null ? other.attachedRigidbody.gameObject : other.gameObject;
+
+		switch (explodeWhen) {
+
+		case ExplodeType.contactWithMark:
+			ContactWithMark(obj);
+			break;
+
+		case ExplodeType.contactWithMinion:
+			ContactWithMinion(obj);
+			break;
+
+		case ExplodeType.both:
+			ContactWithMinion(obj);
+			ContactWithMark(obj);
+			break;
+		}
+
+	}
+
+	void ContactWithMark(GameObject obj) {
+		if (ifTargetDies == TargetDeadAction.explodeAtTarget) {
+			ProjectileMark _mark = obj.GetComponent<ProjectileMark> ();
+			if (_mark == mark) {
+				Kill ();
+			}
 		}
 	}
 
-	Minion GetMinion(Collider other) {
-		if (other.attachedRigidbody != null)
-			return other.attachedRigidbody.GetComponent<Minion> ();
-		else
-			return other.GetComponent<Minion> ();
+	void ContactWithMinion(GameObject obj) {
+		Minion _minion = obj.GetComponent<Minion> ();
+		if (_minion == target && target != null) {
+			Kill ();
+			if (damageType == DamageType.onlyToTarget)
+				target.Damage(damage);
+		}
 	}
 
 	#region Movement (MoveSkull, MoveMark, FindTarget)
 	void MoveSkull() {
-		transform.position = Vector3.MoveTowards (transform.position, target.transform.position, speed * Time.deltaTime);
-		transform.LookAt (target.transform);
+		transform.position = Vector3.MoveTowards (transform.position, mark.transform.position, speed * Time.deltaTime);
+		transform.LookAt (mark.transform);
 	}
 
 	void MoveMark() {
-		mark.position = target.transform.position;
+		mark.transform.position = target.transform.position;
 	}
 
-	void FindTarget() {
+	void Update() {
 		if (target == null) {
-			Minion closest = NearestTarget(transform.position);
+			switch(ifTargetDies) {
 
-			if (closest != null) // Found one
-				target = closest;
-			else // EVERYONE IS DEAD :'(
-				Kill ();
+			case TargetDeadAction.findNewTarget:
+				Minion closest = NearestTarget(transform.position);
+				
+				if (closest != null) // Found one
+					target = closest;
+				else // EVERYONE IS DEAD :'(
+					Kill ();
+
+				break;
+
+			case TargetDeadAction.explodeAtTarget:
+				MoveSkull();
+				break;
+
+			case TargetDeadAction.explodeInPlace:
+				Kill (true);
+				break;
+
+			}
+		} else {
+			MoveMark();
+			MoveSkull();
 		}
 	}
 	#endregion
 
-	#region Damage and health (HitTarget, Damage, HealthChange, Kill)
-	void HitTarget() {
-		target.Damage (damage);
-		Kill (target.health <= 0);
-	}
-	
+	#region Damage and health (Damage, HealthChange, Kill)
 	// returns Boolean: true=died, false=survived
 	public bool Damage(int amount = 1) {
 		health -= amount;
@@ -72,15 +147,18 @@ public class Projectile : MonoBehaviour {
 	
 	void HealthChange() {
 		if (health <= 0 && !dead) {
-			Kill();
+			Kill(true);
 		}
 	}
 	
 	void Kill(bool withoutExplosion = false) {
-		dead = true;
-		Destroy(gameObject);
-		if (!withoutExplosion)
-			Explosion.CreateExplosion (transform.position);
+		if (!dead) {
+			dead = true;
+			Destroy (gameObject);
+			Destroy (mark.gameObject);
+			if (!withoutExplosion)
+				Explosion.CreateExplosion (mark.transform.position, damageType == DamageType.splash ? damage : 0, Side.ally);
+		}
 	}
 	#endregion
 	
@@ -124,4 +202,22 @@ public class Projectile : MonoBehaviour {
 	}
 	#endregion
 
+	#region Enums
+	public enum TargetDeadAction {
+		explodeInPlace,
+		findNewTarget,
+		explodeAtTarget
+	};
+
+	public enum ExplodeType {
+		contactWithMark,
+		contactWithMinion,
+		both
+	};
+
+	public enum DamageType {
+		splash,
+		onlyToTarget
+	};
+	#endregion
 }

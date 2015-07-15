@@ -4,13 +4,8 @@ using System.Collections.Generic;
 
 public class RangeArea : MonoBehaviour {
 
-	//[HideInInspector]
-	public List<Minion> insideTrigger;
-	private Minion parent;
-
-	void Start() {
-		parent = GetComponentInParent<Minion> ();
-	}
+	public Side lookFor;
+	private List<Minion> insideTrigger = new List<Minion>();
 	
 	void OnTriggerEnter(Collider other) {
 		Minion minion = null;
@@ -20,7 +15,7 @@ public class RangeArea : MonoBehaviour {
 			minion = other.GetComponent<Minion> ();
 		
 		if (minion != null) {
-			if (!insideTrigger.Contains (minion) && minion.side != parent.side) {
+			if (!insideTrigger.Contains (minion) && minion.side == lookFor) {
 				insideTrigger.Add (minion);
 			}
 		}
@@ -38,6 +33,10 @@ public class RangeArea : MonoBehaviour {
 		insideTrigger.RemoveAll (delegate(Minion obj) {
 			return obj == null;
 		});
+	}
+
+	public void ForEach(System.Action<Minion> action) {
+		insideTrigger.ForEach (action);
 	}
 
 	public Minion NearestMinion() {

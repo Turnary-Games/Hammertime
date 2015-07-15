@@ -670,7 +670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa54dd2a37035f47aa602ef5fabca37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insideTrigger: []
+  lookFor: 1
 --- !u!114 &11484190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -682,7 +682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa54dd2a37035f47aa602ef5fabca37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  insideTrigger: []
+  lookFor: 1
 --- !u!135 &13583998
 SphereCollider:
   m_ObjectHideFlags: 1

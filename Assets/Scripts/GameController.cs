@@ -107,11 +107,13 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void SpawnCoins(Vector3 pos, int amount) {
-		float offset = Random.Range (0f, 360f);
+		if (amount > 0) {
+			float offset = Random.Range (0f, 360f);
 
-		for (int i=0; i<amount; i++) {
-			float angle = offset + 360f * i / amount;
-			SpawnCoin(pos,angle);
+			for (int i=0; i<amount; i++) {
+				float angle = offset + 360f * i / amount;
+				SpawnCoin (pos, angle);
+			}
 		}
 	}
 
@@ -133,5 +135,5 @@ public class GameController : MonoBehaviour {
 				gameover = true;
 		}
 	}
-
+	
 }

@@ -66,7 +66,10 @@ public class HammerController : MonoBehaviour {
 		Wackable wack = obj.GetComponent<Wackable> ();
 		if (wack) {
 			wackingTarget = wack;
-			point = obj.transform.position;
+			if (wack.customPivot != null)
+				point = wack.customPivot.position;
+			else
+				point = wack.transform.position;
 		} else {
 			wackingTarget = null;
 		}

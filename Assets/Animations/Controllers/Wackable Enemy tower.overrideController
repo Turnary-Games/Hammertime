@@ -1,0 +1,14 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Wackable Enemy tower
+  m_Controller: {fileID: 9100000, guid: b1835ab162a3b014db68f522dcf3ffb6, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 4517b2961141af94aaa26477a6fe90f0, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 40364962470854f40b9c7e34bf607015, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f7aa047068a9c0e4abe5f697a88cc07a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 5a2cd6d874717d14ea18636f097c1435, type: 2}

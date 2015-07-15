@@ -6,7 +6,7 @@ public class WackableRune : Wackable {
 
 	private RuneController rune;
 	
-	void Start() {
+	public override void Init() {
 		rune = GetComponent<RuneController> ();
 	}
 	
