@@ -13,7 +13,7 @@ static class SideMethods {
 	}
 }
 
-public class Minion : MonoBehaviour {
+public class Minion : Living {
 
 	[Header("Variables (DONT ALTER)")]
 
@@ -28,8 +28,6 @@ public class Minion : MonoBehaviour {
 	public Side side;
 	[Tooltip("ENEMY ONLY! Gold dropped upon death")]
 	public int reward = 1; // coins
-	[Tooltip("Hitpoints to kill")]
-	public int health = 1;
 	[Tooltip("Damage dealt to minions")]
 	public int damage = 1;
 	[Tooltip("Delay in seconds an attack takes")]
@@ -43,7 +41,6 @@ public class Minion : MonoBehaviour {
 	protected Coroutine attackCoroutine;
 
 	protected bool canAttack = true; // deactivates on each hit, for cooldown effect
-	protected bool dead;
 	protected State state = State.idle;
 	
 	// Pathfinding
@@ -54,6 +51,8 @@ public class Minion : MonoBehaviour {
 		agent.speed = agentSpeed;
 		
 		Move ();
+
+		GameController.Get ().AddHealthbar (this);
 	}
 
 	protected virtual void Update() {
@@ -182,25 +181,24 @@ public class Minion : MonoBehaviour {
 
 	#region Raw damage methods (Damage, HealthChange, Die)
 	// returns Boolean: true=died, false=survived
-	public bool Damage(int amount = 1) {
-		health -= amount;
-		HealthChange ();
-		return health <= 0;
+	public override bool Damage(int amount = 1) {
+		return base.Damage (amount);
 	}
 
-	protected void HealthChange() {
-		if (health <= 0 && !dead) {
-			Die();
+	protected override void HealthChange() {
+		base.HealthChange ();
+	}
+	
+	protected override void Die() {
+		if (!dead) {
+			dead = true;
+			Destroy (gameObject);
+
+			Explosion.CreateExplosion (transform.position, 0);
+
+			if (side == Side.enemy)
+				GameController.Get ().SpawnCoins (transform.position, reward);
 		}
-	}
-
-	protected void Die() {
-		dead = true;
-		Destroy(gameObject);
-		Explosion.CreateExplosion (transform.position,0);
-
-		if (side == Side.enemy)
-			GameController.Get ().SpawnCoins (transform.position, reward);
 	}
 	#endregion
 

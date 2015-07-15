@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile : MonoBehaviour {
+public class Projectile : Living {
 
 	[HideInInspector] public Minion target;
 
@@ -29,17 +29,15 @@ public class Projectile : MonoBehaviour {
 	         "Not compatible with /Explode At Target/ action if the target does before it reaches it.")]
 	public DamageType damageType;
 
-	[Header("Value settings")]
+	[Header("Other settings")]
 	[Tooltip("Movement speed in units per second")]
 	public float speed;
-	[Tooltip("Hitpoints, can take /health/ damage before dying. Can only currently take damage from the hammer")]
-	public int health = 1;
 	[Tooltip("Damage dealt to target minion on impact")]
 	public int damage = 1;
 	[Tooltip("Coins dropped if killed by the hammer")]
 	public int reward = 1;
-
-	private bool dead;
+	[Tooltip("Should the projectile spawn in with a healthbar above it?")]
+	public bool spawnWithHealthbar;
 
 	void Start() {
 
@@ -54,8 +52,11 @@ public class Projectile : MonoBehaviour {
 			mark.transform.SetParent(transform.parent,true);
 			mark.transform.rotation = Quaternion.identity;
 			MoveMark ();
+
+			if (spawnWithHealthbar)
+				GameController.Get().AddHealthbar(this);
 		} else
-			Kill (true);
+			Die (true);
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -83,7 +84,7 @@ public class Projectile : MonoBehaviour {
 		if (ifTargetDies == TargetDeadAction.explodeAtTarget) {
 			ProjectileMark _mark = obj.GetComponent<ProjectileMark> ();
 			if (_mark == mark) {
-				Kill ();
+				Die ();
 			}
 		}
 	}
@@ -91,7 +92,7 @@ public class Projectile : MonoBehaviour {
 	void ContactWithMinion(GameObject obj) {
 		Minion _minion = obj.GetComponent<Minion> ();
 		if (_minion == target && target != null) {
-			Kill ();
+			Die ();
 			if (damageType == DamageType.onlyToTarget)
 				target.Damage(damage);
 		}
@@ -117,7 +118,7 @@ public class Projectile : MonoBehaviour {
 				if (closest != null) // Found one
 					target = closest;
 				else // EVERYONE IS DEAD :'(
-					Kill ();
+					Die ();
 
 				break;
 
@@ -126,7 +127,7 @@ public class Projectile : MonoBehaviour {
 				break;
 
 			case TargetDeadAction.explodeInPlace:
-				Kill (true);
+				Die (true);
 				break;
 
 			}
@@ -139,22 +140,25 @@ public class Projectile : MonoBehaviour {
 
 	#region Damage and health (Damage, HealthChange, Kill)
 	// returns Boolean: true=died, false=survived
-	public bool Damage(int amount = 1) {
-		health -= amount;
-		HealthChange ();
-		return health <= 0;
+	public override bool Damage(int amount = 1) {
+		return base.Damage (amount);
 	}
 	
-	void HealthChange() {
+	protected override void HealthChange() {
 		if (health <= 0 && !dead) {
-			Kill(true);
+			Die(true);
 		}
 	}
-	
-	void Kill(bool withoutExplosion = false) {
+
+	protected override void Die() {
+		Die (false);
+	}
+
+	protected void Die(bool withoutExplosion) {
 		if (!dead) {
 			dead = true;
 			Destroy (gameObject);
+
 			Destroy (mark.gameObject);
 			if (!withoutExplosion)
 				Explosion.CreateExplosion (mark.transform.position, damageType == DamageType.splash ? damage : 0, Side.ally);

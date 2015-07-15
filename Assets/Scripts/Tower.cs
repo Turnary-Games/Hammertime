@@ -13,7 +13,7 @@ public class Tower : Minion {
 	private float fireTime;
 
 	protected override void Start () {
-		// do nothing
+		GameController.Get ().AddHealthbar (this);
 	}
 
 	protected override void Update () {

@@ -26,6 +26,10 @@ public class GameController : MonoBehaviour {
 	public int enemyHealth; // HP of evil tree
 	public bool gameover = false;
 
+	[Header("Minion healthbars")]
+	public GameObject healthbarPrefab;
+	public GameObject healthbarCanvas;
+
 	private MenuItem selectedItem;
 
 #if UNITY_EDITOR
@@ -58,11 +62,9 @@ public class GameController : MonoBehaviour {
 	}
 
 	void SpawnWave() {
-		List<Spawnpoint> spawnpoints = new List<Spawnpoint> (FindObjectsOfType<Spawnpoint> ());
-
-		spawnpoints.ForEach (delegate(Spawnpoint obj) {
-			obj.Spawn(obj.side == Side.ally ? allyPrefab : enemyPrefab).transform.SetParent(transform);
-		});
+		foreach(Spawnpoint point in FindObjectsOfType<Spawnpoint> ()) {
+			point.Spawn(point.side == Side.ally ? allyPrefab : enemyPrefab).transform.SetParent(transform);
+		}
 	}
 
 	void UpdateText() {
@@ -134,6 +136,14 @@ public class GameController : MonoBehaviour {
 			if (playerHealth <= 0)
 				gameover = true;
 		}
+	}
+
+	public void AddHealthbar(Living living) {
+		GameObject clone = Instantiate (healthbarPrefab) as GameObject;
+		clone.transform.SetParent (healthbarCanvas.transform);
+
+		Healthbar healthbar = clone.GetComponent<Healthbar> ();
+		healthbar.living = living;
 	}
 	
 }

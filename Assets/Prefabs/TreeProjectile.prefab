@@ -593,6 +593,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3703eb6193ae4724b93fc95d83f3693a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 1
+  dead: 0
   target: {fileID: 0}
   mark: {fileID: 11457624}
   boxCollider: {fileID: 6578662}
@@ -600,9 +602,9 @@ MonoBehaviour:
   explodeWhen: 0
   damageType: 0
   speed: 8
-  health: 1
   damage: 10
   reward: 3
+  spawnWithHealthbar: 1
 --- !u!135 &13510802
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1734,6 +1736,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: damage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spawnWithHealthbar
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
