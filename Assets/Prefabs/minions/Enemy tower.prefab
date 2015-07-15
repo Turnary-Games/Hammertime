@@ -87,23 +87,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &163266
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 426104}
-  - 135: {fileID: 13569104}
-  - 114: {fileID: 11486220}
-  m_Layer: 14
-  m_Name: Vision range
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &169392
 GameObject:
   m_ObjectHideFlags: 1
@@ -268,7 +251,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 483324}
-  - {fileID: 426104}
   m_Father: {fileID: 413894}
   m_RootOrder: 2
 --- !u!4 &411830
@@ -300,18 +282,6 @@ Transform:
   - {fileID: 450790}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!4 &426104
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 163266}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 402352}
-  m_RootOrder: 1
 --- !u!4 &436164
 Transform:
   m_ObjectHideFlags: 1
@@ -632,7 +602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goal: {fileID: 0}
   attackRange: {fileID: 11438194}
-  visionRange: {fileID: 11486220}
+  visionRange: {fileID: 0}
   arrivePrefab: {fileID: 171516, guid: c92183b43c7b2a24e8794c0ea353c676, type: 2}
   side: 1
   reward: 7
@@ -669,18 +639,6 @@ MonoBehaviour:
   anim: {fileID: 9500976}
   customPivot: {fileID: 0}
   hammer: {fileID: 0}
---- !u!114 &11486220
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 163266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caa54dd2a37035f47aa602ef5fabca37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lookFor: 0
 --- !u!135 &13533562
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -691,19 +649,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 15
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &13569104
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 163266}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 15
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &19804272
 ParticleSystem:
