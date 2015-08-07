@@ -13,4 +13,8 @@ public class WackableMenuBG : Wackable {
 		gameController.Deselect ();
 	}
 
+	protected override void Update () {
+		// Dont do anything
+	}
+
 }

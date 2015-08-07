@@ -3,26 +3,31 @@ using System.Collections;
 
 public class Tower : Minion {
 
-	[Header("Tower specific")]
+	[Header("Tower Variables (DONT ALTER)")]
 
+	[Tooltip("Fire particle system")]
+	public ParticleSystem partSystem;
 	[Tooltip("Projectile object to be fired")]
 	public GameObject projectilePrefab;
 	[Tooltip("Position the projectile should be fired from")]
 	public Transform projectileStart;
-
-	private float fireTime;
 
 	protected override void Start () {
 		GameController.Get ().AddHealthbar (this);
 	}
 
 	protected override void Update () {
+		if (paused)
+			return;
+		
 		// Check for enemies
 		Minion inAttackRange = attackRange.NearestMinion ();
 
 		if (inAttackRange != null || attackVictim != null) {
 			// Attack dat bastard
 			Attack (inAttackRange);
+		} else {
+			state = State.idle;
 		}
 	}
 
@@ -31,10 +36,12 @@ public class Tower : Minion {
 			state = State.attacking;
 		}
 
+		attackWindupTime += Time.deltaTime;
+
 		// Fire cooldown
-		if (Time.time - fireTime >= attackWindup) {
+		if (attackWindupTime >= attackWindup) {
 			// Reset cooldown
-			fireTime = Time.time;
+			attackWindupTime = 0;
 
 			// Fire ze missiles!
 			Fire (victim);
@@ -42,22 +49,23 @@ public class Tower : Minion {
 
 	}
 
-	void Fire(Minion victim) {
-		Vector3 direction = (victim.transform.position - transform.position).normalized;
-		Quaternion rotation = Quaternion.LookRotation (direction);
-
-		GameObject clone = Instantiate (projectilePrefab, projectileStart.position, rotation) as GameObject;
-		Projectile projectile = clone.GetComponent<Projectile> ();
-
-		if (projectile != null)
-			projectile.target = victim;
-		else
-			Destroy (clone);
+	void Fire(Minion target) {
+		Projectile.SpawnProjectile (projectilePrefab, projectileStart.position, target);
 	}
 
 	public override void Arrive () {
 		state = State.arrived;
 	}
+
+	#region Pause methods
+	protected override void OnPause () {
+		partSystem.Pause ();
+	}
+
+	protected override void OnUnpause () {
+		partSystem.Play ();
+	}
+	#endregion
 
 }
 

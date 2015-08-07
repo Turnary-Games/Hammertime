@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RuneController : MonoBehaviour {
+public class RuneController : Pausable {
 
+	[Header("Variables (DONT ALTER)")]
+
+	public ParticleSystem partSystem;
 	public RangeArea trigger;
+
 	private GameController gameController;
 	private Spawnpoint spawnpoint;
 
@@ -22,5 +26,15 @@ public class RuneController : MonoBehaviour {
 			obj.Arrive();
 		});
 	}
+
+	#region Pause methods
+	protected override void OnPause () {
+		partSystem.Pause ();
+	}
+
+	protected override void OnUnpause () {
+		partSystem.Play ();
+	}
+	#endregion
 
 }

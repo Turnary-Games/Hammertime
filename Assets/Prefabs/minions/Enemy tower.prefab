@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1 &115662
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -252,7 +252,7 @@ Transform:
   m_Children:
   - {fileID: 483324}
   m_Father: {fileID: 413894}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &411830
 Transform:
   m_ObjectHideFlags: 1
@@ -260,10 +260,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 115662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.140000001, y: 1.63999999, z: 2.6500001}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -.303333133, y: 5.29333305, z: -.143332168}
+  m_LocalScale: {x: 1.66666698, y: 1.66666663, z: 1.66666698}
   m_Children: []
-  m_Father: {fileID: 439648}
+  m_Father: {fileID: 413894}
   m_RootOrder: 0
 --- !u!4 &413894
 Transform:
@@ -271,10 +271,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 122790}
-  m_LocalRotation: {x: 0, y: -.995225132, z: 0, w: .0976061746}
-  m_LocalPosition: {x: -20.3999996, y: .5, z: -24.5}
+  m_LocalRotation: {x: 0, y: -.995225072, z: 0, w: -.0976065025}
+  m_LocalPosition: {x: 20.6299992, y: .5, z: -24.4500008}
   m_LocalScale: {x: .600000024, y: .600000024, z: .600000024}
   m_Children:
+  - {fileID: 411830}
   - {fileID: 439648}
   - {fileID: 499832}
   - {fileID: 402352}
@@ -304,11 +305,10 @@ Transform:
   m_LocalPosition: {x: -.0700000003, y: 2.55999994, z: -4.55999994}
   m_LocalScale: {x: 1.66666698, y: 1.66666663, z: 1.66666698}
   m_Children:
-  - {fileID: 411830}
   - {fileID: 498726}
   - {fileID: 475596}
   m_Father: {fileID: 413894}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &450790
 Transform:
   m_ObjectHideFlags: 1
@@ -320,7 +320,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 413894}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!4 &451872
 Transform:
   m_ObjectHideFlags: 1
@@ -358,7 +358,7 @@ Transform:
   - {fileID: 436164}
   - {fileID: 401696}
   m_Father: {fileID: 413894}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!4 &475596
 Transform:
   m_ObjectHideFlags: 1
@@ -370,7 +370,7 @@ Transform:
   m_LocalScale: {x: 3.59132576, y: 3.35309911, z: 3.59132409}
   m_Children: []
   m_Father: {fileID: 439648}
-  m_RootOrder: 2
+  m_RootOrder: 1
 --- !u!4 &483324
 Transform:
   m_ObjectHideFlags: 1
@@ -394,7 +394,7 @@ Transform:
   m_LocalScale: {x: 3.06079888, y: 2.82278943, z: 3.06079769}
   m_Children: []
   m_Father: {fileID: 439648}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!4 &499832
 Transform:
   m_ObjectHideFlags: 1
@@ -408,7 +408,7 @@ Transform:
   - {fileID: 451872}
   - {fileID: 454258}
   m_Father: {fileID: 413894}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!23 &2302264
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -600,17 +600,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27283a115c8890c47a501d19afa5234a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 5
+  dead: 0
   goal: {fileID: 0}
   attackRange: {fileID: 11438194}
   visionRange: {fileID: 0}
   arrivePrefab: {fileID: 171516, guid: c92183b43c7b2a24e8794c0ea353c676, type: 2}
   side: 1
   reward: 7
-  health: 5
   damage: 2
   attackWindup: 3
   agentSpeed: 0
   stareAngularSpeed: 0
+  partSystem: {fileID: 19804272}
   projectilePrefab: {fileID: 191596, guid: 67ba886c15e05164793c8a27f00e2d75, type: 2}
   projectileStart: {fileID: 450790}
 --- !u!114 &11438194

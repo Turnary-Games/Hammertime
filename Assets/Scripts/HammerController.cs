@@ -1,24 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HammerController : MonoBehaviour {
+public class HammerController : Pausable {
+
+	[Header("Variables (DONT ALTER)")]
 
 	public LayerMask raycastPlainMask;
 	public LayerMask raycastObstacleMask;
 	public ParticleSystem thump;
 	public GameObject mesh;
-	[Space(12)]
+
+	[Header("Settings")]
+
+	[Tooltip("Damage dealt to minions and towers when wacked")]
 	public int damage = 1;
+	[Tooltip("After each wack with the hammer wait /attackCooldown/ seconds before you can wack again")]
 	public float attackCooldown;
 
-	private bool canAttack = true;
+	private float attackCooldownTime;
 	private bool visable = true;
 	private bool isVisable = true;
 	private Vector3 startPoint;
 	private Vector3 point;
 	private Animator anim;
 
-	[HideInInspector] public Wackable wackingTarget;
+	[HideInInspector]
+	public Wackable wackingTarget;
 
 	void Start() {
 		anim = GetComponent<Animator> ();
@@ -26,8 +33,16 @@ public class HammerController : MonoBehaviour {
 	}
 
 	void Update () {
+		if (paused)
+			return;
+
+		// Cooldown
+		CooldownStep ();
+
+		// Look for /stuff/ in the way, get the position of the mouse in 3D space
 		Raycast ();
-		
+
+		// Move to point
 		transform.position = new Vector3 (point.x, Mathf.Max (point.y, startPoint.y), point.z);
 	}
 
@@ -66,10 +81,7 @@ public class HammerController : MonoBehaviour {
 		Wackable wack = obj.GetComponent<Wackable> ();
 		if (wack) {
 			wackingTarget = wack;
-			if (wack.customPivot != null)
-				point = wack.customPivot.position;
-			else
-				point = wack.transform.position;
+			point = wack.customPivot == null ? wack.transform.position : point = wack.customPivot.position;
 		} else {
 			wackingTarget = null;
 		}
@@ -82,20 +94,15 @@ public class HammerController : MonoBehaviour {
 	}
 
 	void Punch() {
-		if (canAttack) {
+		if (CanAttack ()) {
 			if (isVisable) {
-				anim.SetTrigger("Swing");
-				StartCoroutine(AttackCooldown());
+				anim.SetTrigger ("Swing");
+				CooldownStart ();
 			} else {
+				// Skip the animation
 				Wack ();
 			}
 		}
-	}
-
-	IEnumerator AttackCooldown() {
-		canAttack = false;
-		yield return new WaitForSeconds (attackCooldown);
-		canAttack = true;
 	}
 
 	// Called from animation event of the "Swing"
@@ -114,5 +121,30 @@ public class HammerController : MonoBehaviour {
 			isVisable = state;
 		}
 	}
+
+	#region Cooldown
+	void CooldownStart() {
+		attackCooldownTime = Mathf.Max (0f, attackCooldownTime - attackCooldown);
+	}
+	
+	void CooldownStep() {
+		if (!CanAttack ())
+			attackCooldownTime += Time.deltaTime;
+	}
+
+	bool CanAttack() {
+		return attackCooldownTime >= attackCooldown;
+	}
+	#endregion
+
+	#region Pause methods
+	protected override void OnPause () {
+		anim.speed = 0;
+	}
+
+	protected override void OnUnpause () {
+		anim.speed = 1;
+	}
+	#endregion
 
 }

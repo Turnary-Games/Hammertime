@@ -598,6 +598,8 @@ MonoBehaviour:
   target: {fileID: 0}
   mark: {fileID: 11457624}
   boxCollider: {fileID: 6578662}
+  trail: {fileID: 9691318}
+  partSystem: {fileID: 19805270}
   ifTargetDies: 2
   explodeWhen: 0
   damageType: 0
@@ -1741,6 +1743,14 @@ Prefab:
       propertyPath: spawnWithHealthbar
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: partSystem
+      value: 
+      objectReference: {fileID: 19805270}
+    - target: {fileID: 0}
+      propertyPath: trail
+      value: 
+      objectReference: {fileID: 9691318}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 191596}

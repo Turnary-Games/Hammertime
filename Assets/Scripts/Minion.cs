@@ -40,8 +40,8 @@ public class Minion : Living {
 	protected Minion attackVictim;
 	protected Coroutine attackCoroutine;
 
-	protected bool canAttack = true; // deactivates on each hit, for cooldown effect
 	protected State state = State.idle;
+	protected float attackWindupTime;
 	
 	// Pathfinding
 	private NavMeshAgent agent;
@@ -56,6 +56,9 @@ public class Minion : Living {
 	}
 
 	protected virtual void Update() {
+		if (paused)
+			return;
+
 		// Check for enemies
 		Minion inAttackRange = attackRange.NearestMinion ();
 		Minion inVisionRange = visionRange.NearestMinion ();
@@ -84,19 +87,16 @@ public class Minion : Living {
 			agent.updateRotation = false;
 		}
 
-		// No existing victim
-		if (attackVictim == null)
-			attackVictim = victim;
-
 		// Victim change
 		if (attackVictim != victim) {
-			canAttack = true;
-			if (attackCoroutine != null)
-				StopCoroutine(attackCoroutine);
+			attackVictim = victim;
+			WindupStart();
 		}
 
-		Punch ();
-		Stare (victim.transform.position);
+		if (attackVictim != null) {
+			Stare (attackVictim.transform.position);
+			WindupStep();
+		}
 	}
 
 	protected void Follow(Minion victim) {
@@ -144,24 +144,28 @@ public class Minion : Living {
 		transform.rotation = Quaternion.LookRotation (newDir);
 	}
 
-	#region Attacking (Punch, AttackCooldown)
-	protected void Punch() {
-		if (canAttack) {
-			attackCoroutine = StartCoroutine(AttackWindup());
-		}
+	#region Attacking (WindupStart, WindupComplete, WindupStep)
+	protected void WindupStart() {
+		attackWindupTime = 0;
+		// TODO: Add animation thingie here.
 	}
 
-	protected IEnumerator AttackWindup() {
-		canAttack = false;
-		yield return new WaitForSeconds (attackWindup);
+	protected void WindupComplete() {
+		// Time to kill
+		attackVictim.Damage(damage);
+		
+		// Reset timer
+		attackWindupTime -= attackWindup;
+	}
 
-		// Hasen't died while winding up
-		if (attackVictim != null)
-			attackVictim.Damage (damage);
+	protected void WindupStep() {
+		attackWindupTime += Time.deltaTime;
 
-		attackCoroutine = null;
-		attackVictim = null;
-		canAttack = true;
+		// TODO: Or add the animation thingie here.
+
+		if (attackWindupTime >= attackWindup) {
+			WindupComplete();
+		}
 	}
 	#endregion
 
@@ -199,6 +203,32 @@ public class Minion : Living {
 			if (side == Side.enemy)
 				GameController.Get ().SpawnCoins (transform.position, reward);
 		}
+	}
+	#endregion
+
+	#region Pause methods
+	// Solution to pausing NavMeshAgent:
+	// http://answers.unity3d.com/questions/351049/navmesh-agent-pause.html
+	// Credits to Morm91 on Unity Answers
+	private Vector3 lastAgentVelocity;
+	private NavMeshPath lastAgentPath;
+
+	protected override void OnPause () {
+		state = State.idle;
+
+		// Store agent data
+		lastAgentVelocity = agent.velocity;
+		lastAgentPath = agent.path;
+		
+		// Reset agent
+		agent.velocity = Vector3.zero;
+		agent.ResetPath ();
+	}
+
+	protected override void OnUnpause () {
+		// Resume agent
+		agent.velocity = lastAgentVelocity;
+		agent.SetPath (lastAgentPath);
 	}
 	#endregion
 

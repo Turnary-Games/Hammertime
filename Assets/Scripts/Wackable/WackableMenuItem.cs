@@ -17,7 +17,7 @@ public class WackableMenuItem : Wackable {
 			menuItem.Select ();
 	}
 
-	void Update () {
+	protected override void Update () {
 		if (anim != null && hammer != null) {
 			anim.SetBool ("Hover", hammer.wackingTarget == this);
 			anim.SetBool ("Selected", menuItem.IsSelected ());

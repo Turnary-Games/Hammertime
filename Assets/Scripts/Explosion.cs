@@ -2,11 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Explosion : MonoBehaviour {
+public class Explosion : Pausable {
 
-	public static GameObject prefab;
+	[Header("Variables (DONT ALTER)")]
 
+	public Animator anim;
+
+	[Header("Settings")]
+
+	[Tooltip("This is the default damage.\nIf damage is not specified in the CreateExplosion method then it will use this value.")]
 	public int damage;
+	
+	[HideInInspector]
+	public static GameObject prefab;
 	[HideInInspector]
 	public List<Side> whitelist = new List<Side>();
 
@@ -36,6 +44,17 @@ public class Explosion : MonoBehaviour {
 		Destroy (gameObject);
 	}
 
+	#region Pausing
+	protected override void OnPause () {
+		anim.speed = 0;
+	}
+
+	protected override void OnUnpause () {
+		anim.speed = 1;
+	}
+	#endregion
+
+	#region Variations of CreateExplosion
 	/// <summary>
 	/// Creates an explosion at <paramref name="position"/> dealing <paramref name="damage"/> points to each minion within a radius of <paramref name="radius"/> units.
 	/// Will only damage minions of a side in the <paramref name="whitelist"/> list. If the list is left empty then it won't damage anything.
@@ -80,4 +99,5 @@ public class Explosion : MonoBehaviour {
 
 		script.whitelist = new List<Side>(whitelist);
 	}
+	#endregion
 }

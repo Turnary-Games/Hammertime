@@ -17,8 +17,11 @@ public class Healthbar : MonoBehaviour {
 		healthbar = GetComponent<RectTransform> ();
 		canvas = healthbar.parent.GetComponent<RectTransform> ();
 
-		slider.maxValue = living.health;
-		slider.value = living.health;
+		if (living != null) {
+			slider.maxValue = living.health;
+			slider.value = living.health;
+		} else
+			Debug.LogError ("Please make sure the living variable gets assigned!");
 	}
 
 	void Update() {

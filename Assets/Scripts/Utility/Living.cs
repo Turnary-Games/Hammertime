@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Living : MonoBehaviour
+public class Living : Pausable
 {
 	[Header("Living settings")]
 	

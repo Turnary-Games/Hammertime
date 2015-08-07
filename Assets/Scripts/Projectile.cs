@@ -9,6 +9,8 @@ public class Projectile : Living {
 	
 	public ProjectileMark mark;
 	public BoxCollider boxCollider;
+	public TrailRenderer trail;
+	public ParticleSystem partSystem;
 
 	[Header("Behaviour settings")]
 
@@ -109,6 +111,9 @@ public class Projectile : Living {
 	}
 
 	void Update() {
+		if (paused)
+			return;
+
 		if (target == null) {
 			switch(ifTargetDies) {
 
@@ -171,12 +176,16 @@ public class Projectile : Living {
 		Minion target = NearestTarget (source);
 		
 		if (target != null) {
-			Quaternion rotation = Quaternion.LookRotation(target.transform.position - source);
-			GameObject clone = Instantiate (prefab, source, rotation) as GameObject;
-
-			Projectile script = clone.GetComponent<Projectile>();
-			script.target = target;
+			SpawnProjectile(prefab,source,target);
 		}
+	}
+
+	public static void SpawnProjectile(GameObject prefab, Vector3 source, Minion target) {
+		Quaternion rotation = Quaternion.LookRotation(target.transform.position - source);
+		GameObject clone = Instantiate (prefab, source, rotation) as GameObject;
+		
+		Projectile script = clone.GetComponent<Projectile>();
+		script.target = target;
 	}
 	
 	static Minion NearestTarget(Vector3 source) {
@@ -223,5 +232,17 @@ public class Projectile : Living {
 		splash,
 		onlyToTarget
 	};
+	#endregion
+
+	#region Pause methods
+	protected override void OnPause () {
+		partSystem.Pause ();
+
+		// TODO: Pause trail renderer
+	}
+
+	protected override void OnUnpause () {
+		partSystem.Play ();
+	}
 	#endregion
 }

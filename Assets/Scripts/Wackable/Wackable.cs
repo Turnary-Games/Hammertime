@@ -21,9 +21,11 @@ public class Wackable : MonoBehaviour {
 	}
 
 
-	void Update () {
+	protected virtual void Update () {
 		if (anim != null && hammer != null)
-			anim.SetBool ("Selected", FindObjectOfType<HammerController> ().wackingTarget == this);
+			anim.SetBool ("Selected", hammer.wackingTarget == this);
+		else
+			Debug.LogError ("Please make sure the animator and hammer variables are getting their values. ("+ name +")");
 	}
 
 }

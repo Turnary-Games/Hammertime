@@ -2,12 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameController : MonoBehaviour {
+public class GameController : Pausable {
 
 	public GameObject explosionPrefab;
 
 	[Header("Wave settings")]
-	public float firstWaveWait = 1;
 	public float waveWait = 1;
 	public GameObject allyPrefab;
 	public GameObject enemyPrefab;
@@ -31,13 +30,16 @@ public class GameController : MonoBehaviour {
 	public GameObject healthbarCanvas;
 
 	private MenuItem selectedItem;
+	private float waveTimeLapsed;
 
 #if UNITY_EDITOR
 	private int coins_old;
 
 	void OnValidate() {
-		if (coins != coins_old)
+		if (coins != coins_old) {
+			coins = Mathf.Clamp(coins,0,999);
 			UpdateText ();
+		}
 		coins_old = coins;
 	}
 #endif
@@ -47,17 +49,20 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Start() {
-		StartCoroutine (MinionWave ());
 		UpdateText ();
 	}
 
-	IEnumerator MinionWave() {
-		yield return new WaitForSeconds(firstWaveWait);
+	void Update() {
+		if (paused || gameover)
+			return;
 
-		while (!gameover) {
+		// Minion wave
+		waveTimeLapsed += Time.deltaTime;
+
+		if (waveTimeLapsed >= waveWait) {
+			waveTimeLapsed -= waveWait;
+
 			SpawnWave();
-
-			yield return new WaitForSeconds(waveWait);
 		}
 	}
 

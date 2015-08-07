@@ -1,0 +1,209 @@
+fileFormatVersion: 2
+guid: 5a44c1e833424624093da5cf805b249c
+timeCreated: 1438438593
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Char_C_1
+    100002: Char_C_2
+    100004: Char_I_1
+    100006: Char_I_2
+    100008: Char_O_1
+    100010: Char_O_2
+    100012: Char_R_1
+    100014: Char_R_2
+    100016: Char_T_1
+    100018: Char_T_2
+    100020: Char_V_1
+    100022: Char_V_2
+    100024: Char_Y_1
+    100026: Char_Y_2
+    100028: curve1
+    100030: group
+    100032: pCube1
+    100034: pCube10
+    100036: pCube11
+    100038: pCube12
+    100040: pCube13
+    100042: pCube14
+    100044: pCube2
+    100046: pCube3
+    100048: pCube4
+    100050: pCube5
+    100052: pCube6
+    100054: pCube7
+    100056: pCube8
+    100058: pCube9
+    100060: pCubeShape11
+    100062: Text_VICTxORY_1
+    100064: Text_VICTxORY_2
+    100066: transform1
+    100068: transform10
+    100070: transform11
+    100072: transform12
+    100074: transform13
+    100076: transform14
+    100078: transform15
+    100080: transform2
+    100082: transform3
+    100084: transform4
+    100086: transform5
+    100088: transform6
+    100090: transform7
+    100092: transform8
+    100094: transform9
+    100096: Trim_Char_C_2_1
+    100098: Trim_Char_I_2_1
+    100100: Trim_Char_O_2_1
+    100102: Trim_Char_R_2_1
+    100104: Trim_Char_T_2_1
+    100106: Trim_Char_V_2_1
+    100108: Trim_Char_Y_2_1
+    100110: Trim_Text_VICTxORY_2_1
+    100112: //RootNode
+    400000: Char_C_1
+    400002: Char_C_2
+    400004: Char_I_1
+    400006: Char_I_2
+    400008: Char_O_1
+    400010: Char_O_2
+    400012: Char_R_1
+    400014: Char_R_2
+    400016: Char_T_1
+    400018: Char_T_2
+    400020: Char_V_1
+    400022: Char_V_2
+    400024: Char_Y_1
+    400026: Char_Y_2
+    400028: curve1
+    400030: group
+    400032: pCube1
+    400034: pCube10
+    400036: pCube11
+    400038: pCube12
+    400040: pCube13
+    400042: pCube14
+    400044: pCube2
+    400046: pCube3
+    400048: pCube4
+    400050: pCube5
+    400052: pCube6
+    400054: pCube7
+    400056: pCube8
+    400058: pCube9
+    400060: pCubeShape11
+    400062: Text_VICTxORY_1
+    400064: Text_VICTxORY_2
+    400066: transform1
+    400068: transform10
+    400070: transform11
+    400072: transform12
+    400074: transform13
+    400076: transform14
+    400078: transform15
+    400080: transform2
+    400082: transform3
+    400084: transform4
+    400086: transform5
+    400088: transform6
+    400090: transform7
+    400092: transform8
+    400094: transform9
+    400096: Trim_Char_C_2_1
+    400098: Trim_Char_I_2_1
+    400100: Trim_Char_O_2_1
+    400102: Trim_Char_R_2_1
+    400104: Trim_Char_T_2_1
+    400106: Trim_Char_V_2_1
+    400108: Trim_Char_Y_2_1
+    400110: Trim_Text_VICTxORY_2_1
+    400112: //RootNode
+    2300000: curve1
+    2300002: pCube1
+    2300004: pCube14
+    2300006: pCube5
+    2300008: pCube6
+    2300010: pCube7
+    2300012: pCube8
+    2300014: pCube9
+    3300000: curve1
+    3300002: pCube1
+    3300004: pCube14
+    3300006: pCube5
+    3300008: pCube6
+    3300010: pCube7
+    3300012: pCube8
+    3300014: pCube9
+    4300000: pCube1
+    4300002: pCube5
+    4300004: pCube6
+    4300006: pCube7
+    4300008: pCube8
+    4300010: pCube9
+    4300012: curve1
+    4300014: pCube14
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
