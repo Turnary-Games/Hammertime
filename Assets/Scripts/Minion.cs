@@ -183,7 +183,7 @@ public class Minion : Living {
 	}
 	#endregion
 
-	#region Raw damage methods (Damage, HealthChange, Die)
+	#region Raw damage methods (Damage, HealthChange, Die, Kill)
 	// returns Boolean: true=died, false=survived
 	public override bool Damage(int amount = 1) {
 		return base.Damage (amount);
@@ -192,15 +192,20 @@ public class Minion : Living {
 	protected override void HealthChange() {
 		base.HealthChange ();
 	}
-	
-	protected override void Die() {
+
+	// Kill the minion
+	public override void Kill() {
+		Kill (true);
+	}
+
+	public void Kill(bool coins) {
 		if (!dead) {
 			dead = true;
 			Destroy (gameObject);
-
+			
 			Explosion.CreateExplosion (transform.position, 0);
-
-			if (side == Side.enemy)
+			
+			if (coins && side == Side.enemy)
 				GameController.Get ().SpawnCoins (transform.position, reward);
 		}
 	}

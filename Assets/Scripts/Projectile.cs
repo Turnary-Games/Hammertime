@@ -58,7 +58,7 @@ public class Projectile : Living {
 			if (spawnWithHealthbar)
 				GameController.Get().AddHealthbar(this);
 		} else
-			Die (true);
+			Kill (true);
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -86,7 +86,7 @@ public class Projectile : Living {
 		if (ifTargetDies == TargetDeadAction.explodeAtTarget) {
 			ProjectileMark _mark = obj.GetComponent<ProjectileMark> ();
 			if (_mark == mark) {
-				Die ();
+				Kill ();
 			}
 		}
 	}
@@ -94,7 +94,7 @@ public class Projectile : Living {
 	void ContactWithMinion(GameObject obj) {
 		Minion _minion = obj.GetComponent<Minion> ();
 		if (_minion == target && target != null) {
-			Die ();
+			Kill ();
 			if (damageType == DamageType.onlyToTarget)
 				target.Damage(damage);
 		}
@@ -123,7 +123,7 @@ public class Projectile : Living {
 				if (closest != null) // Found one
 					target = closest;
 				else // EVERYONE IS DEAD :'(
-					Die ();
+					Kill ();
 
 				break;
 
@@ -132,7 +132,7 @@ public class Projectile : Living {
 				break;
 
 			case TargetDeadAction.explodeInPlace:
-				Die (true);
+				Kill (true);
 				break;
 
 			}
@@ -151,20 +151,20 @@ public class Projectile : Living {
 	
 	protected override void HealthChange() {
 		if (health <= 0 && !dead) {
-			Die(true);
+			Kill(true);
 		}
 	}
 
-	protected override void Die() {
-		Die (false);
+	public override void Kill() {
+		Kill (false);
 	}
 
-	protected void Die(bool withoutExplosion) {
+	public void Kill(bool withoutExplosion) {
 		if (!dead) {
 			dead = true;
 			Destroy (gameObject);
-
 			Destroy (mark.gameObject);
+
 			if (!withoutExplosion)
 				Explosion.CreateExplosion (mark.transform.position, damageType == DamageType.splash ? damage : 0, Side.ally);
 		}

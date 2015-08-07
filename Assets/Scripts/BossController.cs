@@ -20,9 +20,14 @@ public class BossController : Pausable {
 	public float spawnDelay;
 
 	private float timeElapsed;
+	private GameController game;
+
+	void Start() {
+		game = GameController.Get ();
+	}
 
 	void Update() {
-		if (paused)
+		if (paused || game.gameover)
 			return;
 
 		timeElapsed += Time.deltaTime;

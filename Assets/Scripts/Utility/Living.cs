@@ -20,11 +20,11 @@ public class Living : Pausable
 	
 	protected virtual void HealthChange() {
 		if (health <= 0 && !dead) {
-			Die();
+			Kill();
 		}
 	}
-	
-	protected virtual void Die() {
+
+	public virtual void Kill() {
 		if (!dead) {
 			dead = true;
 			Destroy (gameObject);
