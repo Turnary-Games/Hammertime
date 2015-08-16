@@ -251,8 +251,12 @@ public class GameController : Pausable {
 	}
 	
 	public void AddHealthbar(Living living) {
-		GameObject clone = Instantiate (healthbarPrefab) as GameObject;
-		clone.transform.SetParent (healthbarCanvas.transform);
+		// Create at canvas
+		GameObject clone = Instantiate (healthbarPrefab,healthbarCanvas.transform.position,healthbarCanvas.transform.rotation) as GameObject;
+		// Set parent without moving
+		clone.transform.SetParent (healthbarCanvas.transform,true);
+		// Reset scale
+		clone.transform.localScale = Vector3.one;
 		
 		Healthbar healthbar = clone.GetComponent<Healthbar> ();
 		healthbar.living = living;

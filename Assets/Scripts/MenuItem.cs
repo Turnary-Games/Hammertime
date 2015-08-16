@@ -11,7 +11,7 @@ public class MenuItem : MonoBehaviour {
 
 	public void Start() {
 		priceText.text = price.ToString ();
-		gameController = FindObjectOfType<GameController> ();
+		gameController = GameController.Get ();
 	}
 
 	public void Select() {

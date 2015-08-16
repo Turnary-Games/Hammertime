@@ -26,9 +26,9 @@ TagManager:
   - Coin
   - 
   - 
-  - 
-  - 
-  - 
+  - UI Main menu
+  - UI Options menu
+  - UI Credits menu
   - 
   - 
   - 
@@ -43,4 +43,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Healthbars
+    uniqueID: 1389561895
+    locked: 0
+  - name: Fading
+    uniqueID: 3985775159
     locked: 0
