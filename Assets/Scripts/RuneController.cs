@@ -22,6 +22,7 @@ public class RuneController : Pausable {
 	}
 
 	void Update() {
+		trigger.Cleanup();
 		trigger.ForEach (delegate(Minion obj) {
 			obj.Arrive();
 		});

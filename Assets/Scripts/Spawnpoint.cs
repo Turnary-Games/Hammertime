@@ -8,16 +8,18 @@ public class Spawnpoint : MonoBehaviour {
 	public float height = 1;
 	public float rotation;
 
+#if UNITY_EDITOR
 	void OnDrawGizmos() {
 		Vector3 from = new Vector3(transform.position.x, height, transform.position.z);
 		Vector3 to = from + Quaternion.Euler (0, rotation, 0) * Vector3.forward * 5;
 
-		Gizmos.color = Color.red;
+		Gizmos.color = side == Side.ally ? Color.blue : Color.red;
 
 		Gizmos.DrawLine (transform.position, from);
 		Gizmos.DrawLine (from, to);
 		Gizmos.DrawSphere (to, 0.3f);
 	}
+#endif
 
 	public GameObject Spawn(GameObject prefab) {
 		Vector3 pos = new Vector3(transform.position.x, height, transform.position.z);

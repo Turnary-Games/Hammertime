@@ -3,20 +3,20 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class Healthbar : MonoBehaviour {
-	
+
+	[Header("Variables (DONT ALTER)")]
 	public Living living;
 	public Slider slider;
+	public RectTransform healthbar;
+	[HideInInspector]
+	public RectTransform canvas;
 
+	[Header("Settings")]
 	public Vector2 size;
 	public Vector2 offset;
 
-	private RectTransform canvas;
-	private RectTransform healthbar;
 
 	void Start() {
-		healthbar = GetComponent<RectTransform> ();
-		canvas = healthbar.parent.GetComponent<RectTransform> ();
-
 		if (living != null) {
 			slider.maxValue = living.health;
 			slider.value = living.health;

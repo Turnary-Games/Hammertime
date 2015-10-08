@@ -29,7 +29,7 @@ public class RangeArea : MonoBehaviour {
 		}
 	}
 
-	void Cleanup() {
+	public void Cleanup() {
 		insideTrigger.RemoveAll (delegate(Minion obj) {
 			return obj == null;
 		});

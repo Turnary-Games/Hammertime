@@ -221,13 +221,15 @@ public class Minion : Living {
 	protected override void OnPause () {
 		state = State.idle;
 
-		// Store agent data
-		lastAgentVelocity = agent.velocity;
-		lastAgentPath = agent.path;
-		
-		// Reset agent
-		agent.velocity = Vector3.zero;
-		agent.ResetPath ();
+		if (agent != null && agent.hasPath) {
+			// Store agent data
+			lastAgentVelocity = agent.velocity;
+			lastAgentPath = agent.path;
+
+			// Reset agent
+			agent.velocity = Vector3.zero;
+			agent.ResetPath();
+		}
 	}
 
 	protected override void OnUnpause () {

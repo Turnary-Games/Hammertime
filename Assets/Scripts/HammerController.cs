@@ -26,6 +26,8 @@ public class HammerController : Pausable {
 
 	[HideInInspector]
 	public Wackable wackingTarget;
+	// TODO: REMOVE TMP VAR [oldTarget]
+	private Wackable oldTarget;
 
 	void Start() {
 		anim = GetComponent<Animator> ();
@@ -44,6 +46,11 @@ public class HammerController : Pausable {
 
 		// Move to point
 		transform.position = new Vector3 (point.x, Mathf.Max (point.y, startPoint.y), point.z);
+
+		if (oldTarget != wackingTarget) {
+			print("CHANGED! time= " + Time.time.ToString() + "    target=" + (wackingTarget != null ? wackingTarget.ToString() : "null"));
+			oldTarget = wackingTarget;
+		}
 	}
 
 	void Raycast() {
@@ -69,7 +76,6 @@ public class HammerController : Pausable {
 		if (Input.GetMouseButtonDown (0)) {
 			Punch ();
 		}
-
 	}
 
 	void HandleObstacleHit(RaycastHit hit) {
@@ -110,8 +116,9 @@ public class HammerController : Pausable {
 		if (wackingTarget != null) {
 			wackingTarget.Wack (damage);
 
-			if (isVisable)
-				thump.Play ();
+			if (isVisable) {
+				thump.Play();
+			}
 		}
 	}
 

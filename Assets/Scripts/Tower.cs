@@ -13,7 +13,7 @@ public class Tower : Minion {
 	public Transform projectileStart;
 
 	protected override void Start () {
-		GameController.Get ().AddHealthbar (this);
+		GameController.Get ().AddHealthbar (this, Vector2.up * 1f);
 	}
 
 	protected override void Update () {

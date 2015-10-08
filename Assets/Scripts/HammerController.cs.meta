@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: 6fa23094f7011824c9277b1ae3fecbd5
-timeCreated: 1438892129
+timeCreated: 1444299631
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - thump: {instanceID: 0}
+  - mesh: {instanceID: 0}
+  - wackingTarget: {instanceID: 0}
   executionOrder: -50
   icon: {instanceID: 0}
   userData: 

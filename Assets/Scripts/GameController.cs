@@ -4,7 +4,13 @@ using System.Collections.Generic;
 
 public class GameController : Pausable {
 
+	[Header("Variables (DONT ALTER)")]
+
 	public GameObject explosionPrefab;
+	[Tooltip("When a minion is spawned they will be placed inside the /minionsParent/ gameobject as a child object.")]
+	public Transform minionsParent;
+	[Tooltip("When a coin is spawned they will be placed inside the /coinsParent/ gameobject as a child object.")]
+	public Transform coinsParent;
 
 	[Header("Wave settings")]
 
@@ -46,15 +52,25 @@ public class GameController : Pausable {
 	[Tooltip("When the game is over all losing minions will one by one get destroyed in random order. " + 
 	         "Wait /gameoverDelay/ seconds between each minion.")]
 	public float gameoverDelay;
+	public BossHealthbar playerHealthbar;
+	public BossHealthbar enemyHealthbar;
 
 	[Header("Minion healthbars (DONT ALTER)")]
 
 	[Tooltip("This prefab is cloned when a healthbar is needed.\n\n" +
-	         "(PLEASE DONT ALTER)")]
+			 "(PLEASE DONT ALTER)")]
 	public GameObject healthbarPrefab;
 	[Tooltip("This refers to the canvas the healthbar shall be placed on.\n\n" +
-	         "(PLEASE DONT ALTER)")]
-	public GameObject healthbarCanvas;
+			 "(PLEASE DONT ALTER)")]
+	public RectTransform healthbarCanvas;
+
+	[Space]
+	[Tooltip("This prefab is cloned when a damage indicator is needed.\n\n" +
+			 "(PLEASE DONT ALTER)")]
+	public GameObject damageIndicatorPrefab;
+	[Tooltip("This refers to the canvas the damage indicators shall be placed on.\n\n" +
+			 "(PLEASE DONT ALTER)")]
+	public RectTransform damageIndicatorCanvas;
 
 	private bool _gameover;
 	public bool gameover {
@@ -62,12 +78,11 @@ public class GameController : Pausable {
 			return _gameover;
 		}
 		set {
-			bool state = _gameover;
-			_gameover = value;
-			
 			// Trigger event
-			if (state != value && value)
-				OnGameover ();
+			if (!_gameover && value) {
+				_gameover = value;
+				OnGameover();
+			}
 		}
 	}
 
@@ -89,6 +104,8 @@ public class GameController : Pausable {
 
 	void Start() {
 		UpdateText ();
+		playerHealthbar.InitHealthbar(playerHealth, playerHealth);
+		enemyHealthbar.InitHealthbar(enemyHealth, enemyHealth);
 	}
 
 	void Update() {
@@ -114,12 +131,12 @@ public class GameController : Pausable {
 
 	void SpawnWave() {
 		foreach(Spawnpoint point in FindObjectsOfType<Spawnpoint> ()) {
-			point.Spawn(point.side == Side.ally ? allyPrefab : enemyPrefab).transform.SetParent(transform);
+			point.Spawn(point.side == Side.ally ? allyPrefab : enemyPrefab).transform.SetParent(minionsParent!=null ? minionsParent : transform);
 		}
 	}
 	#endregion
 
-	#region Menu methods
+	#region Item menu methods
 	private MenuItem selectedItem;
 
 	public void Select(MenuItem item) {
@@ -162,6 +179,8 @@ public class GameController : Pausable {
 		Vector3 force = Vector3.up * coinUpForce;
 		force += new Vector3 (Mathf.Sin (Mathf.Deg2Rad * angle), 0, Mathf.Cos (Mathf.Deg2Rad * angle)) * coinForwardForce;
 
+		clone.transform.SetParent(coinsParent!=null ? coinsParent : transform);
+
 		rbody.AddForce (force, ForceMode.Impulse);
 	}
 
@@ -189,8 +208,14 @@ public class GameController : Pausable {
 
 		// Pause all minions and projectiles.
 		// This includes towers because they are child classes of Minion.
+		/*
 		Pausable.PauseAll<Minion> ();
 		Pausable.PauseAll<Projectile> ();
+		Pausable.PauseAll<HammerController>();
+		*/
+
+		// No, just pause EVERYTHING
+		Pausable.PauseAll();
 
 		// Reset deathlist
 		deathlist = new List<Living> ();
@@ -199,7 +224,6 @@ public class GameController : Pausable {
 		foreach (Minion obj in FindObjectsOfType<Minion>()) {
 			if (obj.side == loser) deathlist.Add(obj);
 		}
-		deathlist.AddRange (FindObjectsOfType<Projectile> ());
 
 		deathlist.Shuffle ();
 
@@ -241,25 +265,62 @@ public class GameController : Pausable {
 		
 		if (sourceSide == Side.ally) {
 			enemyHealth -= amount;
+			enemyHealthbar.SetHealth(enemyHealth);
 			if (enemyHealth <= 0)
 				gameover = true;
 		} else if (sourceSide == Side.enemy) {
 			playerHealth -= amount;
+			playerHealthbar.SetHealth(playerHealth);
 			if (playerHealth <= 0)
 				gameover = true;
 		}
 	}
 	
-	public void AddHealthbar(Living living) {
+	public Healthbar AddHealthbar(Living living) {
 		// Create at canvas
-		GameObject clone = Instantiate (healthbarPrefab,healthbarCanvas.transform.position,healthbarCanvas.transform.rotation) as GameObject;
+		GameObject clone = Instantiate(healthbarPrefab, healthbarCanvas.transform.position, healthbarCanvas.transform.rotation) as GameObject;
 		// Set parent without moving
-		clone.transform.SetParent (healthbarCanvas.transform,true);
+		clone.transform.SetParent(healthbarCanvas.transform, true);
 		// Reset scale
 		clone.transform.localScale = Vector3.one;
-		
-		Healthbar healthbar = clone.GetComponent<Healthbar> ();
+
+		// Get the object
+		Healthbar healthbar = clone.GetComponent<Healthbar>();
+
+		// Set some values
+		healthbar.canvas = healthbarCanvas;
 		healthbar.living = living;
+
+		return healthbar;
+	}
+
+	public Healthbar AddHealthbar(Living living, Vector2 offset) {
+		Healthbar healthbar = AddHealthbar(living);
+		healthbar.offset = offset;
+
+		return healthbar;
+	}
+
+	public DamageIndicator AddDamageIndicator(Vector3 position, int damage) {
+		// Create at canvas
+		GameObject clone = Instantiate(damageIndicatorPrefab, damageIndicatorCanvas.transform.position, damageIndicatorCanvas.transform.rotation) as GameObject;
+		// Set parent without moving
+		clone.transform.SetParent(healthbarCanvas.transform, true);
+		// Reset scale
+		clone.transform.localScale = Vector3.one;
+
+		// Get the object
+		DamageIndicator indicator = clone.GetComponent<DamageIndicator>();
+
+		// Set some values
+		indicator.canvas = damageIndicatorCanvas;
+		indicator.text.text = "-" + damage.ToString();
+
+		// Set the position
+		Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, position);
+		indicator.indicator.anchoredPosition = screenPoint - indicator.canvas.sizeDelta / 2f;
+
+		return indicator;
 	}
 	#endregion
 

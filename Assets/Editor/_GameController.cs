@@ -16,6 +16,7 @@ public class _GameController : Editor {
 		"Waves",
 		"Hammer",
 		"Rotators",
+		"Damage Indicators",
 	};
 
 	public override void OnInspectorGUI () {
@@ -67,7 +68,9 @@ public class _GameController : Editor {
 		if ((32 & mask) == 32)
 			Pausable.PauseAll<HammerController> ();
 		if ((64 & mask) == 64)
-			Pausable.PauseAll<Rotate> ();
+			Pausable.PauseAll<Rotate>();
+		if ((128 & mask) == 128)
+			Pausable.PauseAll<DamageIndicator>();
 	}
 
 	void CustomUnpause() {
@@ -87,6 +90,8 @@ public class _GameController : Editor {
 			Pausable.UnpauseAll<HammerController> ();
 		if ((64 & mask) == 64)
 			Pausable.UnpauseAll<Rotate> ();
+		if ((128 & mask) == 128)
+			Pausable.UnpauseAll<DamageIndicator>();
 	}
 
 }

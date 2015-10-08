@@ -94,6 +94,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   living: {fileID: 0}
   slider: {fileID: 11420460}
+  healthbar: {fileID: 22460358}
+  canvas: {fileID: 0}
   size: {x: .400000006, y: .0799999982}
   offset: {x: 0, y: .349999994}
 --- !u!114 &11416244
@@ -109,6 +111,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .566176474, g: .141544119, b: .141544119, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
@@ -178,6 +186,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: .0191392917, g: .867647052, b: .0191392917, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
