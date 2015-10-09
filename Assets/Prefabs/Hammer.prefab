@@ -315,10 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
-  raycastPlainMask:
-    serializedVersion: 2
-    m_Bits: 256
-  raycastObstacleMask:
+  raycastMask:
     serializedVersion: 2
     m_Bits: 512
   thump: {fileID: 19803346}

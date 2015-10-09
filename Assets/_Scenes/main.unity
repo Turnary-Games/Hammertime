@@ -5161,10 +5161,6 @@ Prefab:
       propertyPath: cam
       value: 
       objectReference: {fileID: 200201269}
-    - target: {fileID: 11409438, guid: 2bf5f3f5d19b1614f9e13dc2d27a633f, type: 2}
-      propertyPath: raycastMask.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2bf5f3f5d19b1614f9e13dc2d27a633f, type: 2}
   m_IsPrefabParent: 0
