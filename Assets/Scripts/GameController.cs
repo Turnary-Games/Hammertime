@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameController : Pausable {
 
@@ -52,6 +53,7 @@ public class GameController : Pausable {
 	[Tooltip("When the game is over all losing minions will one by one get destroyed in random order. " + 
 	         "Wait /gameoverDelay/ seconds between each minion.")]
 	public float gameoverDelay;
+	[Space]
 	public BossHealthbar playerHealthbar;
 	public BossHealthbar enemyHealthbar;
 
@@ -76,11 +78,26 @@ public class GameController : Pausable {
 
 	[Tooltip("Time (in seconds) it takes for the text to go from 0 size to full size.")]
 	public float gameoverTextTime = 5f;
-	public AnimationCurve gameoverTextCurve = new AnimationCurve(new Keyframe(0f, 0f), new Keyframe(1f, 1f));
+	public AnimationCurve gameoverCurve = new AnimationCurve(new Keyframe(0f, 0f), new Keyframe(1f, 1f));
+	public float gameoverFadeAlpha = 100f;
 	[Space]
 	public Transform gameoverTextParent;
 	public GameObject gameoverVictory;
 	public GameObject gameoverDefeat;
+	public Image gameoverFading;
+	[Space]
+	[Tooltip("Units per second")]
+	public float uiMoveSpeed = 1f;
+	[Tooltip("Time in seconds they will be moved.\nIf UIMoveSpeed=1 u/s and UIMoveTime=5 s then each one will move 5 units in 5 seconds")]
+	public float uiMoveTime = 1f;
+	[Tooltip("y+")]
+	public Transform[] uiMoveUp;
+	[Tooltip("y-")]
+	public Transform[] uiMoveDown;
+	[Tooltip("x+")]
+	public Transform[] uiMoveRight;
+	[Tooltip("x-")]
+	public Transform[] uiMoveLeft;
 
 	private bool _gameover;
 	public bool gameover {
@@ -210,6 +227,7 @@ public class GameController : Pausable {
 	private List<Living> deathlist = new List<Living> ();
 	private Side loser;
 	private float gameoverElapsed;
+	private float killingTime;
 
 	// Activated once when the game is over (someone lost)
 	void OnGameover() {
@@ -243,6 +261,7 @@ public class GameController : Pausable {
 
 		// Reset time elapsed, just in case
 		gameoverElapsed = 0;
+		killingTime = 0;
 	}
 
 	// Runned each update when the game is over
@@ -251,8 +270,10 @@ public class GameController : Pausable {
 
 		// Part one, kill all losers
 		if (deathlist.Count > 0) {
-			if (gameoverElapsed >= gameoverDelay) {
-				gameoverElapsed -= gameoverDelay;
+			killingTime += Time.deltaTime;
+
+			if (killingTime >= gameoverDelay) {
+				killingTime -= gameoverDelay;
 
 				// Time to destroy a minion!
 				Living living = deathlist.Pop();
@@ -268,9 +289,25 @@ public class GameController : Pausable {
 		// Part two, reveal the text
 
 		float time = gameoverElapsed / gameoverTextTime;
-		float value = gameoverTextCurve.Evaluate(time);
+		float value = gameoverCurve.Evaluate(time);
 
 		gameoverTextParent.localScale = Vector3.one * value;
+		gameoverFading.color = new Color(0f, 0f, 0f, value * gameoverFadeAlpha / 255f);
+
+		// Part three, move UI
+
+		if (gameoverElapsed < uiMoveTime) {
+			MoveUIElements(uiMoveUp, Vector3.up);
+			MoveUIElements(uiMoveDown, Vector3.down);
+			MoveUIElements(uiMoveRight, Vector3.right * 2f); // <- hardcoding ftw
+			MoveUIElements(uiMoveLeft, Vector3.left * 2f);
+		}
+	}
+
+	void MoveUIElements(Transform[] elements, Vector3 direction) {
+		foreach (Transform element in elements) {
+			element.Translate(direction * uiMoveSpeed * Time.deltaTime);
+		}
 	}
 	#endregion
 
