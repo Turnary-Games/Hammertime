@@ -6,8 +6,7 @@ public class HammerController : Pausable {
 	[Header("Variables (DONT ALTER)")]
 
 	public Camera cam;
-	public LayerMask raycastPlainMask;
-	public LayerMask raycastObstacleMask;
+	public LayerMask raycastMask;
 	public ParticleSystem thump;
 	public GameObject mesh;
 
@@ -27,8 +26,6 @@ public class HammerController : Pausable {
 
 	[HideInInspector]
 	public Wackable wackingTarget;
-	// TODO: REMOVE TMP VAR [oldTarget]
-	private Wackable oldTarget;
 
 	void Start() {
 		anim = GetComponent<Animator> ();
@@ -48,27 +45,24 @@ public class HammerController : Pausable {
 		// Move to point
 		transform.position = new Vector3 (point.x, Mathf.Max (point.y, startPoint.y), point.z);
 
+		/* DEBUGGING
 		if (oldTarget != wackingTarget) {
 			print("CHANGED! time= " + Time.time.ToString() + "    target=" + (wackingTarget != null ? wackingTarget.ToString() : "null"));
 			oldTarget = wackingTarget;
 		}
+		*/
 	}
 
 	void Raycast() {
 		// Variables
 		Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-		RaycastHit obstacleHit;
-		RaycastHit plainHit;
+		RaycastHit hit;
 
 		visable = true;
 
-		// Cast a ray for the plain
-		if(Physics.Raycast (ray, out plainHit, Mathf.Infinity, raycastPlainMask))
-			HandlePlainHit(plainHit);
-
-		// Cast a ray for any misc. obstacles
-		if (Physics.Raycast (ray, out obstacleHit, Mathf.Infinity, raycastObstacleMask))
-			HandleObstacleHit (obstacleHit);
+		// Cast a ray
+		if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastMask))
+			HandleHit(hit);
 		else
 			wackingTarget = null;
 
@@ -79,25 +73,20 @@ public class HammerController : Pausable {
 		}
 	}
 
-	void HandleObstacleHit(RaycastHit hit) {
+	void HandleHit(RaycastHit hit) {
 		GameObject obj = hit.collider.attachedRigidbody != null ? hit.collider.attachedRigidbody.gameObject : hit.collider.gameObject;
 
 		if (obj.tag == "InvisHammer")
 			visable = false;
 
-		Wackable wack = obj.GetComponent<Wackable> ();
+		Wackable wack = obj.GetComponent<Wackable>();
 		if (wack) {
 			wackingTarget = wack;
 			point = wack.customPivot == null ? wack.transform.position : point = wack.customPivot.position;
 		} else {
 			wackingTarget = null;
+			point = hit.point;
 		}
-	}
-
-	void HandlePlainHit(RaycastHit hit) {
-		point = hit.point;
-		if (hit.collider.tag == "InvisHammer")
-			visable = false;
 	}
 
 	void Punch() {

@@ -5161,6 +5161,10 @@ Prefab:
       propertyPath: cam
       value: 
       objectReference: {fileID: 200201269}
+    - target: {fileID: 11409438, guid: 2bf5f3f5d19b1614f9e13dc2d27a633f, type: 2}
+      propertyPath: raycastMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2bf5f3f5d19b1614f9e13dc2d27a633f, type: 2}
   m_IsPrefabParent: 0
@@ -11040,7 +11044,7 @@ GameObject:
   - 4: {fileID: 1166938922}
   - 33: {fileID: 1166938921}
   - 64: {fileID: 1166938920}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Raycast plain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
