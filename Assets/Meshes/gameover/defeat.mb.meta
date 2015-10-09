@@ -1,0 +1,328 @@
+fileFormatVersion: 2
+guid: 298d0310c3124f74d89781d2e04ccb2a
+timeCreated: 1444374093
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Char_A_1
+    100002: Char_A_2
+    100004: Char_C_1
+    100006: Char_C_2
+    100008: Char_D_1
+    100010: Char_E_1
+    100012: Char_E_2
+    100014: Char_E_3
+    100016: Char_F_1
+    100018: Char_F_2
+    100020: Char_I_1
+    100022: Char_I_2
+    100024: Char_I_3
+    100026: Char_L_1
+    100028: Char_O_1
+    100030: Char_O_2
+    100032: Char_R_1
+    100034: Char_R_2
+    100036: Char_R_3
+    100038: Char_T_1
+    100040: Char_T_2
+    100042: Char_T_3
+    100044: Char_U_1
+    100046: Char_V_1
+    100048: Char_V_2
+    100050: Char_Y_1
+    100052: Char_Y_2
+    100054: //RootNode
+    100056: group
+    100058: group1
+    100060: group2
+    100062: pasted__pCube2
+    100064: pasted__pCube2 1
+    100066: pasted__pCube3
+    100068: pasted__pCube3 1
+    100070: pasted__pCube4
+    100072: pasted__pCube4 1
+    100074: pasted__pCube5
+    100076: pasted__transform5
+    100078: pasted__transform5 1
+    100080: pasted__transform6
+    100082: pasted__transform6 1
+    100084: pasted__transform7
+    100086: pasted__transform7 1
+    100088: pCube10
+    100090: pCube11
+    100092: pCube12
+    100094: pCube13
+    100096: pCube14
+    100098: pCube17
+    100100: pCube18
+    100102: pCube19
+    100104: pCube2
+    100106: pCube3
+    100108: pCube4
+    100110: pCube7
+    100112: pCube8
+    100114: pCube9
+    100116: pCubeShape11
+    100118: Text_DEFEAT_1
+    100120: Text_FAILURE_1
+    100122: Text_VICTxORY_1
+    100124: Text_VICTxORY_2
+    100126: transform1
+    100128: transform10
+    100130: transform11
+    100132: transform12
+    100134: transform13
+    100136: transform14
+    100138: transform15
+    100140: transform16
+    100142: transform17
+    100144: transform18
+    100146: transform19
+    100148: transform2
+    100150: transform20
+    100152: transform21
+    100154: transform22
+    100156: transform23
+    100158: transform24
+    100160: transform25
+    100162: transform26
+    100164: transform27
+    100166: transform28
+    100168: transform29
+    100170: transform3
+    100172: transform30
+    100174: transform4
+    100176: transform5
+    100178: transform6
+    100180: transform7
+    100182: transform8
+    100184: transform9
+    100186: Trim_Char_A_1_1
+    100188: Trim_Char_A_2_1
+    100190: Trim_Char_C_2_1
+    100192: Trim_Char_D_1_1
+    100194: Trim_Char_D_1_1 1
+    100196: Trim_Char_E_1_1
+    100198: Trim_Char_E_2_1
+    100200: Trim_Char_E_3_1
+    100202: Trim_Char_F_1_1
+    100204: Trim_Char_F_2_1
+    100206: Trim_Char_I_2_1
+    100208: Trim_Char_I_3_1
+    100210: Trim_Char_L_1_1
+    100212: Trim_Char_O_2_1
+    100214: Trim_Char_R_2_1
+    100216: Trim_Char_R_3_1
+    100218: Trim_Char_T_2_1
+    100220: Trim_Char_T_3_1
+    100222: Trim_Char_U_1_1
+    100224: Trim_Char_V_2_1
+    100226: Trim_Char_Y_2_1
+    100228: Trim_Text_DEFEAT_1_1
+    100230: Trim_Text_FAILURE_1_1
+    100232: Trim_Text_VICTxORY_2_1
+    400000: Char_A_1
+    400002: Char_A_2
+    400004: Char_C_1
+    400006: Char_C_2
+    400008: Char_D_1
+    400010: Char_E_1
+    400012: Char_E_2
+    400014: Char_E_3
+    400016: Char_F_1
+    400018: Char_F_2
+    400020: Char_I_1
+    400022: Char_I_2
+    400024: Char_I_3
+    400026: Char_L_1
+    400028: Char_O_1
+    400030: Char_O_2
+    400032: Char_R_1
+    400034: Char_R_2
+    400036: Char_R_3
+    400038: Char_T_1
+    400040: Char_T_2
+    400042: Char_T_3
+    400044: Char_U_1
+    400046: Char_V_1
+    400048: Char_V_2
+    400050: Char_Y_1
+    400052: Char_Y_2
+    400054: //RootNode
+    400056: group
+    400058: group1
+    400060: group2
+    400062: pasted__pCube2
+    400064: pasted__pCube2 1
+    400066: pasted__pCube3
+    400068: pasted__pCube3 1
+    400070: pasted__pCube4
+    400072: pasted__pCube4 1
+    400074: pasted__pCube5
+    400076: pasted__transform5
+    400078: pasted__transform5 1
+    400080: pasted__transform6
+    400082: pasted__transform6 1
+    400084: pasted__transform7
+    400086: pasted__transform7 1
+    400088: pCube10
+    400090: pCube11
+    400092: pCube12
+    400094: pCube13
+    400096: pCube14
+    400098: pCube17
+    400100: pCube18
+    400102: pCube19
+    400104: pCube2
+    400106: pCube3
+    400108: pCube4
+    400110: pCube7
+    400112: pCube8
+    400114: pCube9
+    400116: pCubeShape11
+    400118: Text_DEFEAT_1
+    400120: Text_FAILURE_1
+    400122: Text_VICTxORY_1
+    400124: Text_VICTxORY_2
+    400126: transform1
+    400128: transform10
+    400130: transform11
+    400132: transform12
+    400134: transform13
+    400136: transform14
+    400138: transform15
+    400140: transform16
+    400142: transform17
+    400144: transform18
+    400146: transform19
+    400148: transform2
+    400150: transform20
+    400152: transform21
+    400154: transform22
+    400156: transform23
+    400158: transform24
+    400160: transform25
+    400162: transform26
+    400164: transform27
+    400166: transform28
+    400168: transform29
+    400170: transform3
+    400172: transform30
+    400174: transform4
+    400176: transform5
+    400178: transform6
+    400180: transform7
+    400182: transform8
+    400184: transform9
+    400186: Trim_Char_A_1_1
+    400188: Trim_Char_A_2_1
+    400190: Trim_Char_C_2_1
+    400192: Trim_Char_D_1_1
+    400194: Trim_Char_D_1_1 1
+    400196: Trim_Char_E_1_1
+    400198: Trim_Char_E_2_1
+    400200: Trim_Char_E_3_1
+    400202: Trim_Char_F_1_1
+    400204: Trim_Char_F_2_1
+    400206: Trim_Char_I_2_1
+    400208: Trim_Char_I_3_1
+    400210: Trim_Char_L_1_1
+    400212: Trim_Char_O_2_1
+    400214: Trim_Char_R_2_1
+    400216: Trim_Char_R_3_1
+    400218: Trim_Char_T_2_1
+    400220: Trim_Char_T_3_1
+    400222: Trim_Char_U_1_1
+    400224: Trim_Char_V_2_1
+    400226: Trim_Char_Y_2_1
+    400228: Trim_Text_DEFEAT_1_1
+    400230: Trim_Text_FAILURE_1_1
+    400232: Trim_Text_VICTxORY_2_1
+    2300000: pasted__pCube5
+    2300002: pCube17
+    2300004: pCube18
+    2300006: pCube19
+    2300008: pCube7
+    2300010: pCube8
+    2300012: Trim_Char_D_1_1
+    3300000: pasted__pCube5
+    3300002: pCube17
+    3300004: pCube18
+    3300006: pCube19
+    3300008: pCube7
+    3300010: pCube8
+    3300012: Trim_Char_D_1_1
+    4300000: pCube7
+    4300002: pCube8
+    4300004: pasted__pCube5
+    4300006: Trim_Char_D_1_1
+    4300008: pCube17
+    4300010: pCube18
+    4300012: pCube19
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

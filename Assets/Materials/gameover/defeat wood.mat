@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: EvilColour Darker
+  m_Name: defeat wood
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -78,6 +78,13 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _MatCap
+        second:
+          m_Texture: {fileID: 2800000, guid: 8320987374e1fb544879fc552b145948, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -130,16 +137,16 @@ Material:
       data:
         first:
           name: _Metallic
-        second: .532999992
+        second: 0
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 1}
+        second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
           name: _Color
-        second: {r: .595588207, g: 0, b: .161159262, a: 1}
+        second: {r: .470588207, g: .330303222, b: .152249128, a: 1}
       data:
         first:
           name: _EmissionColorUI

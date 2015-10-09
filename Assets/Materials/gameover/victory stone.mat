@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: EvilColour Darker
+  m_Name: victory stone
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -102,7 +102,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: 0
+        second: .379999995
       data:
         first:
           name: _BumpScale
@@ -130,16 +130,16 @@ Material:
       data:
         first:
           name: _Metallic
-        second: .532999992
+        second: .0900000036
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 1}
+        second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
           name: _Color
-        second: {r: .595588207, g: 0, b: .161159262, a: 1}
+        second: {r: .509948134, g: .517306328, b: .529411793, a: 1}
       data:
         first:
           name: _EmissionColorUI

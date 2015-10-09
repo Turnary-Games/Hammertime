@@ -72,6 +72,16 @@ public class GameController : Pausable {
 			 "(PLEASE DONT ALTER)")]
 	public RectTransform damageIndicatorCanvas;
 
+	[Header("Gameover text")]
+
+	[Tooltip("Time (in seconds) it takes for the text to go from 0 size to full size.")]
+	public float gameoverTextTime = 5f;
+	public AnimationCurve gameoverTextCurve = new AnimationCurve(new Keyframe(0f, 0f), new Keyframe(1f, 1f));
+	[Space]
+	public Transform gameoverTextParent;
+	public GameObject gameoverVictory;
+	public GameObject gameoverDefeat;
+
 	private bool _gameover;
 	public bool gameover {
 		get {
@@ -206,6 +216,10 @@ public class GameController : Pausable {
 		// Find out the loser
 		loser = playerHealth <= 0 ? Side.ally : Side.enemy;
 
+		// Activate the appropiet text
+		(loser == Side.ally ? gameoverDefeat : gameoverVictory).SetActive(true);
+		gameoverTextParent.localScale = Vector3.zero;
+
 		// Pause all minions and projectiles.
 		// This includes towers because they are child classes of Minion.
 		/*
@@ -233,24 +247,30 @@ public class GameController : Pausable {
 
 	// Runned each update when the game is over
 	void GameoverStep() {
-		// Dont have anything to do if all minions is dead
-		if (deathlist.Count == 0)
-			return;
-
 		gameoverElapsed += Time.deltaTime;
 
-		if (gameoverElapsed >= gameoverDelay) {
-			gameoverElapsed -= gameoverDelay;
+		// Part one, kill all losers
+		if (deathlist.Count > 0) {
+			if (gameoverElapsed >= gameoverDelay) {
+				gameoverElapsed -= gameoverDelay;
 
-			// Time to destroy a minion!
-			Living living = deathlist.Pop();
+				// Time to destroy a minion!
+				Living living = deathlist.Pop();
 
-			Minion minion = living as Minion;
-			Projectile proj = living as Projectile;
+				Minion minion = living as Minion;
+				Projectile proj = living as Projectile;
 
-			if (minion) minion.Kill(false);
-			if (proj) proj.Kill(true);
+				if (minion) minion.Kill(false);
+				if (proj) proj.Kill(true);
+			}
 		}
+
+		// Part two, reveal the text
+
+		float time = gameoverElapsed / gameoverTextTime;
+		float value = gameoverTextCurve.Evaluate(time);
+
+		gameoverTextParent.localScale = Vector3.one * value;
 	}
 	#endregion
 

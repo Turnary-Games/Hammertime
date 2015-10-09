@@ -5,6 +5,7 @@ public class HammerController : Pausable {
 
 	[Header("Variables (DONT ALTER)")]
 
+	public Camera cam;
 	public LayerMask raycastPlainMask;
 	public LayerMask raycastObstacleMask;
 	public ParticleSystem thump;
@@ -55,7 +56,7 @@ public class HammerController : Pausable {
 
 	void Raycast() {
 		// Variables
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 		RaycastHit obstacleHit;
 		RaycastHit plainHit;
 

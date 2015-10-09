@@ -25,10 +25,10 @@ TagManager:
   - Vision trigger
   - Coin
   - 
+  - Gameover
   - 
-  - UI Main menu
-  - UI Options menu
-  - UI Credits menu
+  - 
+  - 
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Healthbars
     uniqueID: 1389561895
+    locked: 0
+  - name: Damage indicators
+    uniqueID: 1889308845
     locked: 0
   - name: Fading
     uniqueID: 3985775159
