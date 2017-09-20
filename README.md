@@ -1,10 +1,7 @@
 # IT'S HAMMERTIME
-Unity game made at a local gamejam in 2015. Topic of the jam was: ***"It's hammertime!"***
+Unity game made at a local 24h gamejam in 2015. Topic of the jam was: ***"It's hammertime!"***
 
 ![image](https://cloud.githubusercontent.com/assets/2477952/10399033/a9d7f870-6eb0-11e5-987c-1a26a801a644.png)
-
-# About the game
-
 
 # Features
 - _Wack those obnoxious minions with your powerful hammer of time!_
@@ -35,3 +32,15 @@ Minions are the way to win, but also the way to lose. Both you and the enemy bos
 </table>
 
 All downloads can be found in the [Releases](https://github.com/Turnary-Games/Hammertime/releases) tab.
+
+# Credits
+The team is composed of the 3 members of [Turnary Games](https://github.com/Turnary-Games).
+
+**Fabian _"Bejno"_ Falk**  
+Designer
+
+**Knut B. Hindersson**  
+3D models, textures, aesthetic designer
+
+**Kalle _"Jag"_ Jillheden**  
+Programmer
